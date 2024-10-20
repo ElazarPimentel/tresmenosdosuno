@@ -73,7 +73,7 @@ h1 {
       margin: 0; }
     .question-section #question-container .submit-btn {
       padding: 0.7rem 1.5rem;
-      background-color: #4CAF50;
+      background-color: #888484;
       border: none;
       border-radius: 0.5rem;
       font-size: 1.5rem;
@@ -81,9 +81,9 @@ h1 {
       cursor: pointer;
       transition: background-color 0.3s ease; }
       .question-section #question-container .submit-btn:hover {
-        background-color: #3d8b40; }
+        background-color: #6e6b6b; }
       .question-section #question-container .submit-btn:disabled {
-        background-color: #92cf94;
+        background-color: #bab8b8;
         cursor: not-allowed; }
   .question-section .reset-button {
     margin-top: 1rem;
@@ -106,30 +106,26 @@ h1 {
   justify-content: space-between;
   align-items: center;
   position: relative;
-  border-radius: 10px; }
+  border-radius: 15px;
+  overflow: hidden; }
   .nav-bar ul {
     display: flex;
-    list-style: none;
+    list-style-type: none;
     margin: 0;
     padding: 0; }
     .nav-bar ul li {
-      margin-left: 20px; }
-      .nav-bar ul li:first-child {
-        margin-left: 0; }
+      margin-right: 1rem; }
       .nav-bar ul li a {
-        font-family: 'Rubik', sans-serif;
-        font-weight: 700;
-        font-size: 2.5rem;
-        color: #FFFFFF;
-        padding: 0.3rem 0.6rem;
-        border-radius: 5px;
-        transition: background-color 0.3s ease, color 0.3s ease; }
-        .nav-bar ul li a:hover {
-          background-color: #8e8989;
-          color: #007BFF; }
-        .nav-bar ul li a.active {
-          background-color: #4CAF50;
-          color: white; }
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background-color: #888484;
+        color: #333;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+        font-weight: 800; }
+        .nav-bar ul li a:hover, .nav-bar ul li a:focus {
+          background-color: #6e6b6b; }
   .nav-bar .theme-toggle {
     background: none;
     border: none;

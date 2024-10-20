@@ -146,38 +146,30 @@ h1 {
   justify-content: space-between;
   align-items: center;
   position: relative;
-  border-radius: 10px; // Add this line to round the corners
+  border-radius: 15px; // Add this line for rounded corners
+  overflow: hidden; // This ensures content doesn't spill out of rounded corners
 
   ul {
     display: flex;
-    list-style: none;
+    list-style-type: none;
     margin: 0;
     padding: 0;
 
     li {
-      margin-left: 20px;
-
-      &:first-child {
-        margin-left: 0;
-      }
+      margin-right: 1rem;
 
       a {
-        font-family: 'Rubik', sans-serif;
-        font-weight: 700;
-        font-size: 2.5rem; // Adjust the size as needed
-        color: $color-text;
-        padding: 0.3rem 0.6rem;
-        border-radius: 5px; // Rounded corners
-        transition: background-color 0.3s ease, color 0.3s ease;
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background-color: $color-button; // Use your button color variable
+        color: $color-footer-bg; // Use your text color variable
+        text-decoration: none;
+        border-radius: 8px; // Rounded corners for each item
+        transition: background-color 0.3s ease;
+        font-weight: 800;
 
-        &:hover {
-          background-color: lighten($color-header-bg, 10%);
-          color: $color-light-link;
-        }
-
-        &.active {
-          background-color: $color-button;
-          color: white;
+        &:hover, &:focus {
+          background-color: darken($color-button, 10%);
         }
       }
     }
