@@ -1,0 +1,245 @@
+// file: scss/styles.scss
+// I love chocolate
+
+@import "utils/variables";
+
+// Import the 'Rubik' font for the navigation bar
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $color-background;
+  color: $color-text;
+  font-family: $font-family-exo;
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  &.light-mode {
+    background-color: $color-light-background;
+    color: $color-light-text;
+  }
+
+  p {
+    margin-bottom: 0.5rem;
+  }
+}
+
+a {
+  color: $color-link;
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  body.light-mode & {
+    color: $color-light-link;
+  }
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+.container-main {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.question-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+
+  #feedback {
+    height: 2.5rem; // Fixed height for the feedback box
+    overflow: hidden;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  #question-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    #question {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    input#answer-input {
+      padding: 0.5rem;
+      font-size: 1.5rem;
+      width: 6rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .submit-btn {
+      padding: 0.7rem 1.5rem;
+      background-color: $color-button;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1.5rem;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: darken($color-button, 10%);
+      }
+
+      &:disabled {
+        background-color: lighten($color-button, 20%);
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .reset-button {
+    margin-top: 1rem;
+    background-color: $color-reset-button;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1.2rem;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: darken($color-reset-button, 10%);
+    }
+  }
+}
+
+/* Navigation Bar Styles */
+.nav-bar {
+  background-color: $color-header-bg;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+
+  ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin-left: 20px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      a {
+        font-family: 'Rubik', sans-serif;
+        font-weight: 700;
+        font-size: 2.5rem; // Adjust the size as needed
+        color: $color-text;
+        padding: 0.3rem 0.6rem;
+        border-radius: 5px; // Rounded corners
+        transition: background-color 0.3s ease, color 0.3s ease;
+
+        &:hover {
+          background-color: lighten($color-header-bg, 10%);
+          color: $color-light-link;
+        }
+
+        &.active {
+          background-color: $color-button;
+          color: white;
+        }
+      }
+    }
+  }
+
+  .theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: $color-link;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: lighten($color-link, 20%);
+    }
+  }
+}
+
+.footer {
+  margin-top: 5rem;
+  padding: 1rem;
+  background-color: $color-footer-bg;
+  color: $color-text;
+  text-align: center;
+
+  body.light-mode & {
+    background-color: $color-light-footer-bg;
+    color: $color-light-text;
+  }
+}
+
+.description-box {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: $color-header-bg;
+  color: $color-text;
+
+  body.light-mode & {
+    background-color: $color-light-header-bg;
+    color: $color-light-text;
+  }
+}
+
+@media (max-width: $screen-tablet) {
+  .nav-bar ul {
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: $color-header-bg;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.5s ease;
+  }
+
+  .nav-bar ul.active {
+    height: 200px;
+  }
+
+  .burger {
+    display: flex;
+  }
+}

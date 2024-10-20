@@ -1,0 +1,180 @@
+@import url("https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap");
+*,
+*::before,
+*::after {
+  box-sizing: border-box; }
+
+body {
+  background-color: #121212;
+  color: #FFFFFF;
+  font-family: "Exo", sans-serif;
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease; }
+  body.light-mode {
+    background-color: #f0f0f0;
+    color: #000000; }
+  body p {
+    margin-bottom: 0.5rem; }
+
+a {
+  color: gray;
+  text-decoration: none;
+  transition: color 0.3s ease; }
+  a:hover {
+    text-decoration: underline; }
+  body.light-mode a {
+    color: #007BFF; }
+
+h1 {
+  font-size: 3rem; }
+
+.container-main {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative; }
+
+.question-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem; }
+  .question-section #feedback {
+    height: 2.5rem;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: all 0.3s ease; }
+  .question-section #question-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%; }
+    .question-section #question-container #question {
+      font-size: 2rem;
+      margin-bottom: 1rem; }
+    .question-section #question-container input#answer-input {
+      padding: 0.5rem;
+      font-size: 1.5rem;
+      width: 6rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      -moz-appearance: textfield;
+      appearance: textfield; }
+    .question-section #question-container input::-webkit-outer-spin-button,
+    .question-section #question-container input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0; }
+    .question-section #question-container .submit-btn {
+      padding: 0.7rem 1.5rem;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1.5rem;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease; }
+      .question-section #question-container .submit-btn:hover {
+        background-color: #3d8b40; }
+      .question-section #question-container .submit-btn:disabled {
+        background-color: #92cf94;
+        cursor: not-allowed; }
+  .question-section .reset-button {
+    margin-top: 1rem;
+    background-color: #1E90FF;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1.2rem;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease; }
+    .question-section .reset-button:hover {
+      background-color: #0077ea; }
+
+/* Navigation Bar Styles */
+.nav-bar {
+  background-color: #747070;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative; }
+  .nav-bar ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0; }
+    .nav-bar ul li {
+      margin-left: 20px; }
+      .nav-bar ul li:first-child {
+        margin-left: 0; }
+      .nav-bar ul li a {
+        font-family: 'Rubik', sans-serif;
+        font-weight: 700;
+        font-size: 2.5rem;
+        color: #FFFFFF;
+        padding: 0.3rem 0.6rem;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, color 0.3s ease; }
+        .nav-bar ul li a:hover {
+          background-color: #8e8989;
+          color: #007BFF; }
+        .nav-bar ul li a.active {
+          background-color: #4CAF50;
+          color: white; }
+  .nav-bar .theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: gray;
+    transition: color 0.3s ease; }
+    .nav-bar .theme-toggle:hover {
+      color: #b3b3b3; }
+
+.footer {
+  margin-top: 5rem;
+  padding: 1rem;
+  background-color: #333;
+  color: #FFFFFF;
+  text-align: center; }
+  body.light-mode .footer {
+    background-color: #ddd;
+    color: #000000; }
+
+.description-box {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: #747070;
+  color: #FFFFFF; }
+  body.light-mode .description-box {
+    background-color: #fff;
+    color: #000000; }
+
+@media (max-width: 768px) {
+  .nav-bar ul {
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #747070;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.5s ease; }
+
+  .nav-bar ul.active {
+    height: 200px; }
+
+  .burger {
+    display: flex; } }
+
+/*# sourceMappingURL=styles.css.map */

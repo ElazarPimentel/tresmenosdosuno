@@ -1,0 +1,329 @@
+<!-- file: divi01.html -->
+<!-- I love chocolate -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Learn long division with interactive examples and advanced learning techniques.">
+  <meta name="keywords" content="math, division, long division, interactive learning">
+  <title>Long Division - Math Learning Platform</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="container-main" aria-labelledby="division-title">
+  <header>
+    <nav class="nav-bar" role="navigation" aria-label="Main navigation">
+      <ul>
+        <li><a href="index.html" aria-label="Home">🏠 Home</a></li>
+        <li><a href="divi01.html" aria-label="Division Section">➗ Division</a></li>
+        
+        <li><a href="square-root01.html" aria-label="Square Roots Section">√ Square Roots</a></li>
+        <li><a href="algebraic-equation01.html" aria-label="Algebraic Equations Section">⚛️ Algebraic Equations</a></li>
+      </ul>
+    </nav>
+    <button id="theme-toggle-button" class="theme-toggle" aria-label="Toggle light and dark mode">☯️</button>
+  </header>
+
+  <main class="content" role="main">
+    <section class="question-section">
+      <div id="feedback" class="feedback" aria-live="polite"></div>
+      <div id="question-container">
+        <form>
+          <table class="division-table">
+            <!-- Row 1 -->
+            <tr>
+              <td><input type="text" name="ad01" maxlength="1"></td>
+              <td><input type="text" name="bd01" maxlength="1"></td>
+              <td><input type="text" name="cd01" maxlength="1"></td>
+              <td><input type="text" name="dd01" maxlength="1"></td>
+              <td><input type="text" name="ed01" maxlength="1"></td>
+              <td><input type="text" name="fd01" maxlength="1"></td>
+              <td><input type="text" name="gd01" maxlength="1"></td>
+              <td><input type="text" name="hr01" maxlength="1"></td>
+              <td><input type="text" name="ir01" maxlength="1"></td>
+              <td><input type="text" name="jr01" maxlength="1"></td>
+              <td><input type="text" name="kr01" maxlength="1"></td>
+              <td><input type="text" name="lr01" maxlength="1"></td>
+              <td><input type="text" name="mr01" maxlength="1"></td>
+              <td><input type="text" name="nr01" maxlength="1"></td>
+            </tr>
+
+            <!-- Row 2 -->
+            <tr>
+              <td><input type="text" name="ad02" maxlength="1"></td>
+              <td><input type="text" name="bd02" maxlength="1"></td>
+              <td><input type="text" name="cd02" maxlength="1"></td>
+              <td><input type="text" name="dd02" maxlength="1"></td>
+              <td><input type="text" name="ed02" maxlength="1"></td>
+              <td><input type="text" name="fd02" maxlength="1"></td>
+              <td><input type="text" name="gd02" maxlength="1"></td>
+              <td><input type="text" name="hr02" maxlength="1"></td>
+              <td><input type="text" name="ir02" maxlength="1"></td>
+              <td><input type="text" name="jr02" maxlength="1"></td>
+              <td><input type="text" name="kr02" maxlength="1"></td>
+              <td><input type="text" name="lr02" maxlength="1"></td>
+              <td><input type="text" name="mr02" maxlength="1"></td>
+              <td><input type="text" name="nr02" maxlength="1"></td>
+            </tr>
+
+            <!-- Row 3 -->
+            <tr>
+              <td><input type="text" name="ad03" maxlength="1"></td>
+              <td><input type="text" name="bd03" maxlength="1"></td>
+              <td><input type="text" name="cd03" maxlength="1"></td>
+              <td><input type="text" name="dd03" maxlength="1"></td>
+              <td><input type="text" name="ed03" maxlength="1"></td>
+              <td><input type="text" name="fd03" maxlength="1"></td>
+              <td><input type="text" name="gd03" maxlength="1"></td>
+              <td><input type="text" name="hr03" maxlength="1"></td>
+              <td><input type="text" name="ir03" maxlength="1"></td>
+              <td><input type="text" name="jr03" maxlength="1"></td>
+              <td><input type="text" name="kr03" maxlength="1"></td>
+              <td><input type="text" name="lr03" maxlength="1"></td>
+              <td><input type="text" name="mr03" maxlength="1"></td>
+              <td><input type="text" name="nr03" maxlength="1"></td>
+            </tr>
+
+            <!-- Row 4 -->
+            <tr>
+              <td><input type="text" name="ad04" maxlength="1"></td>
+              <td><input type="text" name="bd04" maxlength="1"></td>
+              <td><input type="text" name="cd04" maxlength="1"></td>
+              <td><input type="text" name="dd04" maxlength="1"></td>
+              <td><input type="text" name="ed04" maxlength="1"></td>
+              <td><input type="text" name="fd04" maxlength="1"></td>
+              <td><input type="text" name="gd04" maxlength="1"></td>
+              <td><input type="text" name="hr04" maxlength="1"></td>
+              <td><input type="text" name="ir04" maxlength="1"></td>
+              <td><input type="text" name="jr04" maxlength="1"></td>
+              <td><input type="text" name="kr04" maxlength="1"></td>
+              <td><input type="text" name="lr04" maxlength="1"></td>
+              <td><input type="text" name="mr04" maxlength="1"></td>
+              <td><input type="text" name="nr04" maxlength="1"></td>
+            </tr>
+
+            <!-- Row 5 -->
+            <tr>
+              <td><input type="text" name="ad05" maxlength="1"></td>
+              <td><input type="text" name="bd05" maxlength="1"></td>
+              <td><input type="text" name="cd05" maxlength="1"></td>
+              <td><input type="text" name="dd05" maxlength="1"></td>
+              <td><input type="text" name="ed05" maxlength="1"></td>
+              <td><input type="text" name="fd05" maxlength="1"></td>
+              <td><input type="text" name="gd05" maxlength="1"></td>
+              <td><input type="text" name="hr05" maxlength="1"></td>
+              <td><input type="text" name="ir05" maxlength="1"></td>
+              <td><input type="text" name="jr05" maxlength="1"></td>
+              <td><input type="text" name="kr05" maxlength="1"></td>
+              <td><input type="text" name="lr05" maxlength="1"></td>
+              <td><input type="text" name="mr05" maxlength="1"></td>
+              <td><input type="text" name="nr05" maxlength="1"></td>
+            </tr>
+
+            <!-- Row 6 -->
+            <tr>
+              <td><input type="text" name="ad06" maxlength="1"></td>
+              <td><input type="text" name="bd06" maxlength="1"></td>
+              <td><input type="text" name="cd06" maxlength="1"></td>
+              <td><input type="text" name="dd06" maxlength="1"></td>
+              <td><input type="text" name="ed06" maxlength="1"></td>
+              <td><input type="text" name="fd06" maxlength="1"></td>
+              <td><input type="text" name="gd06" maxlength="1"></td>
+              <td><input type="text" name="hr06" maxlength="1"></td>
+              <td><input type="text" name="ir06" maxlength="1"></td>
+              <td><input type="text" name="jr06" maxlength="1"></td>
+              <td><input type="text" name="kr06" maxlength="1"></td>
+              <td><input type="text" name="lr06" maxlength="1"></td>
+              <td><input type="text" name="mr06" maxlength="1"></td>
+              <td><input type="text" name="nr06" maxlength="1"></td>
+            </tr>
+
+            <!-- Row 7 -->
+            <tr>
+              <td><input type="text" name="ad07" maxlength="1"></td>
+              <td><input type="text" name="bd07" maxlength="1"></td>
+              <td><input type="text" name="cd07" maxlength="1"></td>
+              <td><input type="text" name="dd07" maxlength="1"></td>
+              <td><input type="text" name="ed07" maxlength="1"></td>
+              <td><input type="text" name="fd07" maxlength="1"></td>
+              <td><input type="text" name="gd07" maxlength="1"></td>
+              <td><input type="text" name="hr07" maxlength="1"></td>
+              <td><input type="text" name="ir07" maxlength="1"></td>
+              <td><input type="text" name="jr07" maxlength="1"></td>
+              <td><input type="text" name="kr07" maxlength="1"></td>
+              <td><input type="text" name="lr07" maxlength="1"></td>
+              <td><input type="text" name="mr07" maxlength="1"></td>
+              <td><input type="text" name="nr07" maxlength="1"></td>
+            </tr>
+
+            <!-- Row 8 -->
+            <tr>
+              <td><input type="text" name="ad08" maxlength="1"></td>
+              <td><input type="text" name="bd08" maxlength="1"></td>
+              <td><input type="text" name="cd08" maxlength="1"></td>
+              <td><input type="text" name="dd08" maxlength="1"></td>
+              <td><input type="text" name="ed08" maxlength="1"></td>
+              <td><input type="text" name="fd08" maxlength="1"></td>
+              <td><input type="text" name="gd08" maxlength="1"></td>
+              <td><input type="text" name="hr08" maxlength="1"></td>
+              <td><input type="text" name="ir08" maxlength="1"></td>
+              <td><input type="text" name="jr08" maxlength="1"></td>
+              <td><input type="text" name="kr08" maxlength="1"></td>
+              <td><input type="text" name="lr08" maxlength="1"></td>
+              <td><input type="text" name="mr08" maxlength="1"></td>
+              <td><input type="text" name="nr08" maxlength="1"></td>
+            </tr>
+
+            <!-- Row 9 -->
+            <tr>
+              <td><input type="text" name="ad09" maxlength="1"></td>
+              <td><input type="text" name="bd09" maxlength="1"></td>
+              <td><input type="text" name="cd09" maxlength="1"></td>
+              <td><input type="text" name="dd09" maxlength="1"></td>
+              <td><input type="text" name="ed09" maxlength="1"></td>
+              <td><input type="text" name="fd09" maxlength="1"></td>
+              <td><input type="text" name="gd09" maxlength="1"></td>
+              <td><input type="text" name="hr09" maxlength="1"></td>
+              <td><input type="text" name="ir09" maxlength="1"></td>
+              <td><input type="text" name="jr09" maxlength="1"></td>
+              <td><input type="text" name="kr09" maxlength="1"></td>
+              <td><input type="text" name="lr09" maxlength="1"></td>
+              <td><input type="text" name="mr09" maxlength="1"></td>
+              <td><input type="text" name="nr09" maxlength="1"></td>
+            </tr>
+
+            <!-- Row 10 -->
+            <tr>
+              <td><input type="text" name="ad10" maxlength="1"></td>
+              <td><input type="text" name="bd10" maxlength="1"></td>
+              <td><input type="text" name="cd10" maxlength="1"></td>
+              <td><input type="text" name="dd10" maxlength="1"></td>
+              <td><input type="text" name="ed10" maxlength="1"></td>
+              <td><input type="text" name="fd10" maxlength="1"></td>
+              <td><input type="text" name="gd10" maxlength="1"></td>
+              <td><input type="text" name="hr10" maxlength="1"></td>
+              <td><input type="text" name="ir10" maxlength="1"></td>
+              <td><input type="text" name="jr10" maxlength="1"></td>
+              <td><input type="text" name="kr10" maxlength="1"></td>
+              <td><input type="text" name="lr10" maxlength="1"></td>
+              <td><input type="text" name="mr10" maxlength="1"></td>
+              <td><input type="text" name="nr10" maxlength="1"></td>
+            </tr>
+
+            <!-- Row 11 -->
+            <tr>
+              <td><input type="text" name="ad11" maxlength="1"></td>
+              <td><input type="text" name="bd11" maxlength="1"></td>
+              <td><input type="text" name="cd11" maxlength="1"></td>
+              <td><input type="text" name="dd11" maxlength="1"></td>
+              <td><input type="text" name="ed11" maxlength="1"></td>
+              <td><input type="text" name="fd11" maxlength="1"></td>
+              <td><input type="text" name="gd11" maxlength="1"></td>
+              <td><input type="text" name="hr11" maxlength="1"></td>
+              <td><input type="text" name="ir11" maxlength="1"></td>
+              <td><input type="text" name="jr11" maxlength="1"></td>
+              <td><input type="text" name="kr11" maxlength="1"></td>
+              <td><input type="text" name="lr11" maxlength="1"></td>
+              <td><input type="text" name="mr11" maxlength="1"></td>
+              <td><input type="text" name="nr11" maxlength="1"></td>
+            </tr>
+
+            <!-- Row 12 -->
+            <tr>
+              <td><input type="text" name="ad12" maxlength="1"></td>
+              <td><input type="text" name="bd12" maxlength="1"></td>
+              <td><input type="text" name="cd12" maxlength="1"></td>
+              <td><input type="text" name="dd12" maxlength="1"></td>
+              <td><input type="text" name="ed12" maxlength="1"></td>
+              <td><input type="text" name="fd12" maxlength="1"></td>
+              <td><input type="text" name="gd12" maxlength="1"></td>
+              <td><input type="text" name="hr12" maxlength="1"></td>
+              <td><input type="text" name="ir12" maxlength="1"></td>
+              <td><input type="text" name="jr12" maxlength="1"></td>
+              <td><input type="text" name="kr12" maxlength="1"></td>
+              <td><input type="text" name="lr12" maxlength="1"></td>
+              <td><input type="text" name="mr12" maxlength="1"></td>
+              <td><input type="text" name="nr12" maxlength="1"></td>
+            </tr>
+
+            <!-- Row 13 -->
+            <tr>
+              <td><input type="text" name="ad13" maxlength="1"></td>
+              <td><input type="text" name="bd13" maxlength="1"></td>
+              <td><input type="text" name="cd13" maxlength="1"></td>
+              <td><input type="text" name="dd13" maxlength="1"></td>
+              <td><input type="text" name="ed13" maxlength="1"></td>
+              <td><input type="text" name="fd13" maxlength="1"></td>
+              <td><input type="text" name="gd13" maxlength="1"></td>
+              <td><input type="text" name="hr13" maxlength="1"></td>
+              <td><input type="text" name="ir13" maxlength="1"></td>
+              <td><input type="text" name="jr13" maxlength="1"></td>
+              <td><input type="text" name="kr13" maxlength="1"></td>
+              <td><input type="text" name="lr13" maxlength="1"></td>
+              <td><input type="text" name="mr13" maxlength="1"></td>
+              <td><input type="text" name="nr13" maxlength="1"></td>
+            </tr>
+
+            <!-- Row 14 -->
+            <tr>
+              <td><input type="text" name="ad14" maxlength="1"></td>
+              <td><input type="text" name="bd14" maxlength="1"></td>
+              <td><input type="text" name="cd14" maxlength="1"></td>
+              <td><input type="text" name="dd14" maxlength="1"></td>
+              <td><input type="text" name="ed14" maxlength="1"></td>
+              <td><input type="text" name="fd14" maxlength="1"></td>
+              <td><input type="text" name="gd14" maxlength="1"></td>
+              <td><input type="text" name="hr14" maxlength="1"></td>
+              <td><input type="text" name="ir14" maxlength="1"></td>
+              <td><input type="text" name="jr14" maxlength="1"></td>
+              <td><input type="text" name="kr14" maxlength="1"></td>
+              <td><input type="text" name="lr14" maxlength="1"></td>
+              <td><input type="text" name="mr14" maxlength="1"></td>
+              <td><input type="text" name="nr14" maxlength="1"></td>
+            </tr>
+          </table>
+        </form>
+
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <p>📋🌐 Learn long division with emojis and repetition techniques</p>
+    <div class="description-box">
+      <p>🇬🇧 English: Practice long division and learn independently using advanced learning techniques. These
+        techniques include a sequential and random learning algorithm, a repetition-based approach with corrections,
+        spaced repetition that focuses on errors, revisit probability, an error-weighted algorithm, and a sequential
+        reset after multiple errors.</p>
+
+      <p>🇪🇸 Español: Practica la división larga y aprende de manera independiente utilizando técnicas avanzadas de
+        aprendizaje. Estas técnicas incluyen un algoritmo de aprendizaje secuencial y aleatorio, un enfoque basado en la
+        repetición con corrección, repetición espaciada centrada en errores, probabilidad de revisión, un algoritmo de
+        ponderación basado en errores, y reinicio secuencial tras múltiples errores.</p>
+
+      <p>🇵🇹 Português: Pratique a divisão longa e aprenda de forma independente utilizando técnicas avançadas de
+        aprendizagem. Essas técnicas incluem um algoritmo de aprendizado sequencial e aleatório, uma abordagem baseada
+        na repetição com correções, repetição espaçada com foco nos erros, probabilidade de revisão, um algoritmo
+        ponderado por erros e reinicialização sequencial após múltiplos erros.</p>
+
+      <p>🇫🇷 Français: Pratiquez la division longue et apprenez de manière autonome en utilisant des techniques
+        avancées d'apprentissage. Ces techniques comprennent un algorithme d'apprentissage séquentiel et aléatoire, une
+        approche basée sur la répétition avec corrections, la répétition espacée avec un accent sur les erreurs, la
+        probabilité de révision, un algorithme pondéré par erreurs et une réinitialisation séquentielle après plusieurs
+        erreurs.</p>
+
+      <p>🇮🇹 Italiano: Pratica la divisione lunga e impara in modo indipendente utilizzando tecniche avanzate di
+        apprendimento. Queste tecniche includono un algoritmo di apprendimento sequenziale e casuale, un approccio
+        basato sulla ripetizione con correzioni, la ripetizione distanziata con un focus sugli errori, la probabilità di
+        revisione, un algoritmo ponderato sugli errori e un ripristino sequenziale dopo più errori.</p>
+    </div>
+  </footer>
+
+  <script defer src="js/main.js"></script>
+</body>
+
+</html>
