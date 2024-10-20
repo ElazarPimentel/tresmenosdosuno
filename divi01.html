@@ -16,39 +16,38 @@
 <body class="container-main" aria-labelledby="division-title">
   <header>
     <nav class="nav-bar" role="navigation" aria-label="Main navigation">
-        <ul>
-            <li><a href="index.html" aria-label="Home">|X|</a></li>
-            <li><a href="divi01.html" aria-label="Division Section">|➗|</a></li>
-            <li><a href="square-root01.html" aria-label="Square Roots Section">|√|</a></li>
-            <li><a href="algebraic-equation01.html" aria-label="Algebraic Equations Section">|2x=1+1|</a></li>
-        </ul>
-        <button id="theme-toggle-button" class="theme-toggle" aria-label="Toggle light and dark mode">|☯️|</button>
+      <ul>
+        <li><a href="index.html" aria-label="Home">✖️</a></li>
+        <li><a href="divi01.html" aria-label="Division Section">➗</a></li>
+        <li><a href="square-root01.html" aria-label="Square Roots Section">√</a></li>
+        <li><a href="algebraic-equation01.html" aria-label="Algebraic Equations Section">2X = 3x9</a></li>
+      </ul>
+      <button id="theme-toggle-button" class="theme-toggle" aria-label="Toggle light and dark mode">|☯️|</button>
     </nav>
-</header>
+  </header>
 
   <main class="content" role="main">
     <section class="question-section">
       <div id="feedback" class="feedback" aria-live="polite"></div>
       <div id="question-container">
         <form>
-          <p id="question" class="question-text" aria-live="polite">1024 ÷ 16</p>
           <table class="division-table">
             <!-- Row 1 -->
-            <tr>
-              <td><input type="text" name="ad01" maxlength="1"></td>
-              <td><input type="text" name="bd01" maxlength="1"></td>
-              <td><input type="text" name="cd01" maxlength="1"></td>
-              <td><input type="text" name="dd01" maxlength="1"></td>
-              <td><input type="text" name="ed01" maxlength="1"></td>
-              <td><input type="text" name="fd01" maxlength="1"></td>
-              <td><input type="text" name="gd01" maxlength="1"></td>
-              <td><input type="text" name="hr01" maxlength="1"></td>
-              <td><input type="text" name="ir01" maxlength="1"></td>
-              <td><input type="text" name="jr01" maxlength="1"></td>
-              <td><input type="text" name="kr01" maxlength="1"></td>
-              <td><input type="text" name="lr01" maxlength="1"></td>
-              <td><input type="text" name="mr01" maxlength="1"></td>
-              <td><input type="text" name="nr01" maxlength="1"></td>
+            <tr id="question">
+              <td><input type="text" name="ad01" maxlength="1" hidden></td>
+              <td><input type="text" name="bd01" maxlength="1" hidden></td>
+              <td><input type="text" name="cd01" maxlength="1" hidden></td>
+              <td><input type="text" name="dd01" maxlength="1" value="1" readonly></td>
+              <td><input type="text" name="ed01" maxlength="1" value="0" readonly></td>
+              <td><input type="text" name="fd01" maxlength="1" value="2" readonly></td>
+              <td><input type="text" name="gd01" maxlength="1" value="4" readonly></td>
+              <td><input type="text" name="hr01" maxlength="1" value="1" readonly></td>
+              <td><input type="text" name="ir01" maxlength="1" value="6" readonly></td>
+              <td><input type="text" name="jr01" maxlength="1" hidden></td>
+              <td><input type="text" name="kr01" maxlength="1" hidden></td>
+              <td><input type="text" name="lr01" maxlength="1" hidden></td>
+              <td><input type="text" name="mr01" maxlength="1" hidden></td>
+              <td><input type="text" name="nr01" maxlength="1" hidden></td>
             </tr>
 
             <!-- Row 2 -->
@@ -67,6 +66,7 @@
               <td><input type="text" name="lr02" maxlength="1"></td>
               <td><input type="text" name="mr02" maxlength="1"></td>
               <td><input type="text" name="nr02" maxlength="1"></td>
+              <td><button id="div-check-btn-02" class="check-btn" aria-label="Check row">🔍</button></td>
             </tr>
 
             <!-- Row 3 -->
@@ -324,6 +324,7 @@
   </footer>
 
   <script defer src="js/main.js"></script>
+  <script defer src="js/divi01.js"></script>
 </body>
 
 </html>
