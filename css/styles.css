@@ -105,7 +105,8 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative; }
+  position: relative;
+  border-radius: 10px; }
   .nav-bar ul {
     display: flex;
     list-style: none;
@@ -140,7 +141,7 @@ h1 {
       color: #b3b3b3; }
 
 .footer {
-  margin-top: 5rem;
+  margin-top: 20rem;
   padding: 1rem;
   background-color: #333;
   color: #FFFFFF;

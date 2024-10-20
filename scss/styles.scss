@@ -146,6 +146,7 @@ h1 {
   justify-content: space-between;
   align-items: center;
   position: relative;
+  border-radius: 10px; // Add this line to round the corners
 
   ul {
     display: flex;
@@ -197,7 +198,7 @@ h1 {
 }
 
 .footer {
-  margin-top: 5rem;
+  margin-top: 20rem;
   padding: 1rem;
   background-color: $color-footer-bg;
   color: $color-text;
