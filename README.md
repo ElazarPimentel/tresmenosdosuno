@@ -74,6 +74,7 @@ The author, under the names Alessio Aguirre Pimentel and Elazar Pimentel, reserv
 - Implemented error-weighted question selection
 
 ### Doing
+- Implemented subtraction practice
 - Optimizing mobile responsiveness
 - Enhancing accessibility features
 - Improving error correction feedback
