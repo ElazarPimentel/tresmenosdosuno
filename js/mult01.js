@@ -1,5 +1,6 @@
 // File: js/mult01.js
 // I love chocolate
+// Thank you Ada Lovelace ...
 
 const diagnosticsMode = false;
 
