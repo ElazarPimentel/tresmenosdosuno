@@ -39,7 +39,14 @@ Simply visit [TresMenosDos.uno](https://TresMenosDos.uno) and start practicing! 
 
 ## Author
 
-Created by Alessio Aguirre Pimentel (also known as Elazar Pimentel).
+Created by Elazar Pimentel (also known as Alessio Aguirre Pimentel).
+
+### Contact Information
+- Email: [Elazar.Pimentel@gmail.com](mailto:Elazar.Pimentel@gmail.com)
+- GitHub: [ElazarPimentel](https://github.com/ElazarPimentel)
+- Website: [ElazarPimentel.com](https://ElazarPimentel.com)
+- Twitter: [PimentelElazar](https://x.com/PimentelElazar)
+- LinkedIn: [elazarpimentel](https://www.linkedin.com/in/elazarpimentel/)
 
 ## License
 
@@ -53,3 +60,31 @@ Copyright © 2024 - Alessio Aguirre Pimentel (also known as Elazar Pimentel). Al
 This work is protected by the Argentine Copyright Law, the Berne Convention for the Protection of Literary and Artistic Works, and other applicable international copyright laws and treaties. Any unauthorized reproduction, distribution, public display, or other use of this work without the express written consent of the author is strictly prohibited, except as allowed by law. Violations of these rights may be subject to legal action, both locally and internationally. 
     
 The author, under the names Alessio Aguirre Pimentel and Elazar Pimentel, reserves all rights to the work, including the right to be recognized as the creator and to object to any modifications or uses that may harm the integrity or reputation of the work, in accordance with applicable laws.
+
+## Project Status
+
+### Done
+- Implemented multiplication tables practice
+- Added division exercises
+- Integrated exponents (powers) practice
+- Developed square root challenges
+- Created emoji-based user interface
+- Implemented multi-language support (EN, ES, PT, FR, IT)
+- Developed spaced repetition algorithm
+- Implemented error-weighted question selection
+
+### Doing
+- Optimizing mobile responsiveness
+- Enhancing accessibility features
+- Improving error correction feedback
+
+### Pending
+- In multiplication tables, randomly ask again questions that were answered incorrectly.
+- Finish long division.
+- Show perfect squares in multiplication tables. (We should all have been taught that in school, right?. Like you know the square root of 49 but if I ask you you would say you don't. Had you been told when you were learning 7x7=49 that the square root of 49 is 7 you would now it now just like you know your multiplication tables.)
+- Start 2x=3x9, simple equations.
+- Add "Download your work" and "Upload your work" features. No login, sorry, too much work.
+- Add a download as PDF "practice sheet" feature. Suggested by Cursor IDE (The best IDE in the galaxy and beyond)
+
+### Known Bugs
+- Multipli
