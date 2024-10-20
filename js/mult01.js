@@ -1,7 +1,7 @@
 // File: js/mult01.js
 // I love chocolate
 
-const diagnosticsMode = true;
+const diagnosticsMode = false;
 
 const multiplicationTables = [];
 for (let table = 2; table <= 12; table++) {
