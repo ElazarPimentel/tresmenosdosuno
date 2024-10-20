@@ -243,3 +243,19 @@ h1 {
     display: flex;
   }
 }
+
+.copyright {
+  background-color: $color-background;
+  color: $color-text;
+  border: 1px solid $color-link;
+  border-radius: 8px;
+  padding: 10px 15px;
+  text-align: left;
+
+  // Light theme styles
+  @at-root .light-theme & {
+    background-color: $color-light-background;
+    color: $color-light-text;
+    border-color: $color-light-link;
+  }
+}

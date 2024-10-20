@@ -176,5 +176,16 @@ h1 {
 
   .burger {
     display: flex; } }
+.copyright {
+  background-color: #121212;
+  color: #FFFFFF;
+  border: 1px solid gray;
+  border-radius: 8px;
+  padding: 10px 15px;
+  text-align: left; }
+  .light-theme .copyright {
+    background-color: #f0f0f0;
+    color: #000000;
+    border-color: #007BFF; }
 
 /*# sourceMappingURL=styles.css.map */
