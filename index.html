@@ -1,12 +1,8 @@
 <!-- file: index.html -->
-<!-- I love chocolate -->
- 
- look up 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <!-- Existing head content -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
@@ -14,7 +10,6 @@
     <meta name="keywords" content="math, multiplication, division, square roots, algebra, interactive learning">
     <title>2x2</title>
     <link rel="stylesheet" href="css/styles.css">
-    <!-- Include Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap" rel="stylesheet">
 </head>
@@ -38,12 +33,13 @@
         <section class="question-section">
             <div id="feedback" class="feedback" aria-live="polite"></div>
             <div id="question-container">
-                <p id="question" class="question-text" aria-live="polite">12 × 2</p>
+                <p id="question" class="question-text" aria-live="polite">2 × 2</p>
                 <label for="answer-input"></label>
                 <input type="number" id="answer-input" maxlength="4" aria-label="Answer input" autofocus=""> <br>
                 <button id="submit-button" class="submit-btn" aria-label="Submit your answer">📤</button>
             </div>
             <button id="reset-button" class="reset-button" aria-label="Reset your progress">🗑️</button>
+            <div id="progress"></div>
         </section>
     </main>
 
