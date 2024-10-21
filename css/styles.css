@@ -42,6 +42,8 @@ h1 {
   flex-direction: column;
   align-items: center;
   margin-top: 2rem; }
+  .question-section #progress {
+    margin-bottom: 1rem; }
   .question-section #feedback {
     height: 2.5rem;
     overflow: hidden;
@@ -97,7 +99,32 @@ h1 {
     transition: background-color 0.3s ease; }
     .question-section .reset-button:hover {
       background-color: #0077ea; }
-
+  .question-section #progress-box {
+    width: 300px;
+    height: 150px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 10px;
+    position: relative;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    margin-top: 1rem; }
+  .question-section .progress {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color: rgba(255, 255, 255, 0.7);
+    animation: scrollUp 8s linear infinite; }
+@keyframes scrollUp {
+  0% {
+    bottom: 0;
+    opacity: 1; }
+  90% {
+    opacity: 1; }
+  100% {
+    bottom: 100%;
+    opacity: 0; } }
 /* Navigation Bar Styles */
 .nav-bar {
   background-color: #747070;

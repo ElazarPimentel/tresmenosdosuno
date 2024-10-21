@@ -39,7 +39,10 @@
                 <button id="submit-button" class="submit-btn" aria-label="Submit your answer">📤</button>
             </div>
             <button id="reset-button" class="reset-button" aria-label="Reset your progress">🗑️</button>
-            <div id="progress"></div>
+            <div id="progress-box">
+                <div id="progress" class="progress">Watching you: 👀</div>
+            </div>
+            
         </section>
     </main>
 
@@ -105,8 +108,9 @@
         </div>
     </footer>
 
-    <script defer src="js/main.js"></script>
+    <!-- Swap the order: load mult01.js before main.js -->
     <script defer src="js/mult01.js"></script>
+    <script defer src="js/main.js"></script>
 </body>
 
 </html>

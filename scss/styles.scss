@@ -62,6 +62,10 @@ h1 {
   align-items: center;
   margin-top: 2rem;
 
+  #progress {
+    margin-bottom: 1rem;
+  }
+
   #feedback {
     height: 2.5rem; // Fixed height for the feedback box
     overflow: hidden;
@@ -136,7 +140,35 @@ h1 {
       background-color: darken($color-reset-button, 10%);
     }
   }
+
+  #progress-box {
+    width: 300px; // Fixed width for the progress box
+    height: 150px; // Fixed height for the progress box
+    background-color: rgba(255, 255, 255, 0.1); // light transparent background
+    border-radius: 10px;
+    overflow: hidden; // Hide overflow to create scrolling effect
+    padding: 10px;
+    position: relative; // Ensure the progress text scrolls within this box
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); // subtle shadow
+    border: 1px solid rgba(255, 255, 255, 0.3); // light border to separate the box visually
+    margin-top: 1rem; // Space from the top
+  }
+
+  .progress {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color: rgba(255, 255, 255, 0.7); // transparent white text for the progress
+    animation: scrollUp 8s linear infinite; // animate text to scroll up and disappear
+  }
+
+  @keyframes scrollUp {
+    0% { bottom: 0; opacity: 1; }
+    90% { opacity: 1; }
+    100% { bottom: 100%; opacity: 0; }
+  }
 }
+
 
 /* Navigation Bar Styles */
 .nav-bar {

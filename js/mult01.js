@@ -14,6 +14,7 @@ for (let table = 2; table <= 12; table++) {
             isInitiallyCorrect: true,
             troubleRight: 0,
             troubleWrong: 0,
+            lastWrongAnswer: null, // Added property
         });
     }
     multiplicationTables.push({ table, questions });
@@ -50,6 +51,7 @@ function loadProgress() {
                         question.isInitiallyCorrect = savedTable.questions[qIndex].isInitiallyCorrect;
                         question.troubleRight = savedTable.questions[qIndex].troubleRight;
                         question.troubleWrong = savedTable.questions[qIndex].troubleWrong;
+                        question.lastWrongAnswer = savedTable.questions[qIndex].lastWrongAnswer || null; // Load lastWrongAnswer
                     });
                 }
             });
@@ -87,6 +89,10 @@ function determineFrequency(troublesomeIndex) {
 }
 
 function updateProgressDisplay() {
+    if (!progressElement) {
+        console.error('progressElement is null');
+        return;
+    }
     const progress = flaggedCombinations.map(f => `${f.a}×${f.b}: ${f.remainingAppearances} left, TI: ${(f.troublesomeIndex * 100).toFixed(1)}%`).join(', ');
     progressElement.textContent = `Flagged Questions: ${progress}`;
     console.log('Updated progress display:', progress);
@@ -171,14 +177,21 @@ function handleSubmit() {
     if (!isRandomPhase) {
         if (userAnswer === correctAnswer) {
             currentQuestion.troubleRight++;
+            currentQuestion.wrongStreak = 0; // Reset streak on correct answer
             console.log(`Correct answer for ${currentQuestion.a} × ${currentQuestion.b}. troubleRight: ${currentQuestion.troubleRight}`);
             clearFeedback();
             currentQuestionIndex++;
             displayQuestion();
         } else {
             currentQuestion.troubleWrong++;
-            console.log(`Wrong answer for ${currentQuestion.a} × ${currentQuestion.b}. troubleWrong: ${currentQuestion.troubleWrong}`);
-            showWrongFeedback(correctAnswer);
+            currentQuestion.lastWrongAnswer = userAnswer; // Store last wrong answer
+            console.log(`Wrong answer for ${currentQuestion.a} × ${currentQuestion.b}. troubleWrong: ${currentQuestion.troubleWrong}, lastWrongAnswer: ${currentQuestion.lastWrongAnswer}`);
+            if (currentQuestion.troubleWrong >= 3) {
+                showHint(currentQuestion.lastWrongAnswer);
+                currentQuestion.troubleWrong = 0; // Reset after showing hint
+            } else {
+                showWrongFeedback(correctAnswer);
+            }
             updateFlaggedCombination(currentQuestion, 'wrong');
             isReinforcementMode = true;
         }
@@ -204,14 +217,28 @@ function handleSubmit() {
             displayQuestion();
         } else {
             if (isFlagged) {
+                currentQuestion.troubleWrong++;
+                currentQuestion.lastWrongAnswer = userAnswer; // Store last wrong answer
+                console.log(`Wrong answer for flagged combination ${currentQuestion.a} × ${currentQuestion.b}. troubleWrong: ${currentQuestion.troubleWrong}, lastWrongAnswer: ${currentQuestion.lastWrongAnswer}`);
+                if (currentQuestion.troubleWrong >= 3) {
+                    showHint(currentQuestion.lastWrongAnswer);
+                    currentQuestion.troubleWrong = 0; // Reset after showing hint
+                } else {
+                    showWrongFeedback(correctAnswer);
+                }
                 updateFlaggedCombination(currentQuestion, 'wrong');
-                console.log(`Wrong answer for flagged combination ${currentQuestion.a} × ${currentQuestion.b}`);
             } else {
                 currentQuestion.troubleWrong++;
-                console.log(`Wrong answer for ${currentQuestion.a} × ${currentQuestion.b}. troubleWrong: ${currentQuestion.troubleWrong}`);
+                currentQuestion.lastWrongAnswer = userAnswer; // Store last wrong answer
+                console.log(`Wrong answer for ${currentQuestion.a} × ${currentQuestion.b}. troubleWrong: ${currentQuestion.troubleWrong}, lastWrongAnswer: ${currentQuestion.lastWrongAnswer}`);
+                if (currentQuestion.troubleWrong >= 3) {
+                    showHint(currentQuestion.lastWrongAnswer);
+                    currentQuestion.troubleWrong = 0; // Reset after showing hint
+                } else {
+                    showWrongFeedback(correctAnswer);
+                }
                 updateFlaggedCombination(currentQuestion, 'wrong');
             }
-            showWrongFeedback(correctAnswer);
             isReinforcementMode = true;
         }
     }
@@ -239,6 +266,17 @@ function showWrongFeedback(correctAnswer) {
         if (diagnosticsMode) {
             autoSubmitCorrectAnswer(currentQuestion);
         }
+    }, 2000);
+}
+
+function showHint(lastWrongAnswer) {
+    feedbackDiv.innerHTML = `❌ Not ${lastWrongAnswer}`;
+    console.log(`Displayed hint: Not ${lastWrongAnswer}`);
+
+    setTimeout(() => {
+        feedbackDiv.innerHTML = '';
+        isReinforcementMode = true;
+        answerInput.focus();
     }, 2000);
 }
 
@@ -336,6 +374,8 @@ answerInput.addEventListener('keypress', function (e) {
 });
 resetButton.addEventListener('click', handleReset);
 
-loadProgress();
-updateProgressDisplay();
-displayQuestion();
+document.addEventListener('DOMContentLoaded', () => {
+    loadProgress();
+    //updateProgressDisplay();
+    displayQuestion();
+});
