@@ -39,10 +39,33 @@
                 <button id="submit-button" class="submit-btn" aria-label="Submit your answer">📤</button>
             </div>
             <button id="reset-button" class="reset-button" aria-label="Reset your progress">🗑️</button>
-            <div id="progress-box">
-                <div id="progress" class="progress">Watching you: 👀</div>
+
+            <!-- Progress Boxes -->
+            <div class="progress-containers">
+                <!-- Flagged Questions Box -->
+                <div id="flagged-box" class="progress-box flagged-box">
+                    <h3>Flagged Questions 📌</h3>
+                    <div id="flagged-progress" class="progress-content">
+                        Watching you: 👀
+                    </div>
+                    <button class="toggle-button" data-target="flagged-box">Hide</button>
+                </div>
+
+                <!-- Session Stats Box -->
+                <div id="session-box" class="progress-box session-box">
+                    <h3>Session Stats 📊</h3>
+                    <div id="session-progress" class="progress-content">
+                        Mastery: 0% 🏅<br>
+                        Questions Answered: 0 | Correct: 0<br>
+                        Phase: 2 Times<br>
+                        Streak: 0 🔥
+                    </div>
+                    <button class="toggle-button" data-target="session-box">Hide</button>
+                </div>
             </div>
-            
+
+            <!-- Sleep Emoji Indicator -->
+            <div id="sleep-indicator" class="sleep-indicator" aria-live="polite" hidden>😴</div>
         </section>
     </main>
 

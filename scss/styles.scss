@@ -162,11 +162,7 @@ h1 {
     animation: scrollUp 8s linear infinite; // animate text to scroll up and disappear
   }
 
-  @keyframes scrollUp {
-    0% { bottom: 0; opacity: 1; }
-    90% { opacity: 1; }
-    100% { bottom: 100%; opacity: 0; }
-  }
+
 }
 
 

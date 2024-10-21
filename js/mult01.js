@@ -29,12 +29,28 @@ let isReinforcementMode = false;
 let currentQuestion = null;
 let flaggedCombinations = [];
 
+// Session Tracking Variables
+let totalQuestions = 0;
+let correctAnswers = 0;
+let currentStreak = 0;
+let maxStreak = 0;
+let totalResponseTime = 0;
+let averageResponseTime = 0;
+let startTime = Date.now();
+
+// Sleep Indicator Timer
+let sleepTimer = null;
+const sleepTimeout = 4000; // 4 seconds
+
 const feedbackDiv = document.getElementById('feedback');
 const questionElement = document.getElementById('question');
 const answerInput = document.getElementById('answer-input');
 const submitButton = document.getElementById('submit-button');
 const resetButton = document.getElementById('reset-button');
-const progressElement = document.getElementById('progress');
+const flaggedProgressElement = document.getElementById('flagged-progress');
+const sessionProgressElement = document.getElementById('session-progress');
+const sleepIndicator = document.getElementById('sleep-indicator');
+const toggleButtons = document.querySelectorAll('.toggle-button');
 
 function loadProgress() {
     console.log('Loading progress from localStorage');
@@ -88,17 +104,43 @@ function determineFrequency(troublesomeIndex) {
     }
 }
 
-function updateProgressDisplay() {
-    if (!progressElement) {
-        console.error('progressElement is null');
-        return;
+function updateFlaggedProgressDisplay() {
+    if (flaggedCombinations.length === 0) {
+        flaggedProgressElement.innerHTML = 'No flagged questions. Keep it up! 🎉';
+    } else {
+        const progress = flaggedCombinations.map(f => `${f.a}×${f.b}: ${f.remainingAppearances} left, TI: ${(f.troublesomeIndex * 100).toFixed(1)}%`).join('<br>');
+        flaggedProgressElement.innerHTML = progress;
     }
-    const progress = flaggedCombinations.map(f => `${f.a}×${f.b}: ${f.remainingAppearances} left, TI: ${(f.troublesomeIndex * 100).toFixed(1)}%`).join(', ');
-    progressElement.textContent = `Flagged Questions: ${progress}`;
-    console.log('Updated progress display:', progress);
+    console.log('Updated flagged progress display:', flaggedProgressElement.innerHTML);
+}
+
+function updateSessionProgressDisplay() {
+    const masteryRate = ((correctAnswers / totalQuestions) * 100).toFixed(1) || 0;
+    const masteryText = `Mastery: ${masteryRate}% 🏅`;
+
+    const questionsAnsweredText = `Questions Answered: ${totalQuestions} | Correct: ${correctAnswers}`;
+
+    const currentPhase = currentTableIndex < multiplicationTables.length ? `Phase: ${multiplicationTables[currentTableIndex].table} Times` : `Phase: Completed`;
+
+    const streakText = `Streak: ${currentStreak} 🔥`;
+
+    const avgResponseTimeText = `Avg Response Time: ${averageResponseTime}s ⏱️`;
+
+    // Clear previous stats
+    sessionProgressElement.innerHTML = '';
+
+    // Append new stats
+    sessionProgressElement.innerHTML += `${masteryText}<br>`;
+    sessionProgressElement.innerHTML += `${questionsAnsweredText}<br>`;
+    sessionProgressElement.innerHTML += `${currentPhase}<br>`;
+    sessionProgressElement.innerHTML += `${streakText}<br>`;
+    sessionProgressElement.innerHTML += `${avgResponseTimeText}`;
+    console.log('Updated session progress display:', sessionProgressElement.innerHTML);
 }
 
 function displayQuestion() {
+    resetSleepTimer(); // Reset sleep timer on new question
+
     if (currentTableIndex >= multiplicationTables.length) {
         questionElement.textContent = '✅ You have completed all tables!';
         answerInput.style.display = 'none';
@@ -170,14 +212,26 @@ function initiateRandomPhase() {
 }
 
 function handleSubmit() {
+    resetSleepTimer(); // Reset sleep timer on submission
+
     const userAnswer = parseInt(answerInput.value, 10);
     const correctAnswer = currentQuestion.a * currentQuestion.b;
     console.log(`User answered: ${userAnswer} for ${currentQuestion.a} × ${currentQuestion.b}, correct answer: ${correctAnswer}`);
+
+    const answerStartTime = Date.now(); // Start time for response
+
+    let isCorrect = false;
 
     if (!isRandomPhase) {
         if (userAnswer === correctAnswer) {
             currentQuestion.troubleRight++;
             currentQuestion.wrongStreak = 0; // Reset streak on correct answer
+            correctAnswers++;
+            currentStreak++;
+            if (currentStreak > maxStreak) {
+                maxStreak = currentStreak;
+            }
+            isCorrect = true;
             console.log(`Correct answer for ${currentQuestion.a} × ${currentQuestion.b}. troubleRight: ${currentQuestion.troubleRight}`);
             clearFeedback();
             currentQuestionIndex++;
@@ -185,6 +239,7 @@ function handleSubmit() {
         } else {
             currentQuestion.troubleWrong++;
             currentQuestion.lastWrongAnswer = userAnswer; // Store last wrong answer
+            currentStreak = 0; // Reset streak on wrong answer
             console.log(`Wrong answer for ${currentQuestion.a} × ${currentQuestion.b}. troubleWrong: ${currentQuestion.troubleWrong}, lastWrongAnswer: ${currentQuestion.lastWrongAnswer}`);
             if (currentQuestion.troubleWrong >= 3) {
                 showHint(currentQuestion.lastWrongAnswer);
@@ -207,18 +262,26 @@ function handleSubmit() {
                 console.log(`Correct answer for flagged combination ${currentQuestion.a} × ${currentQuestion.b}`);
             } else {
                 currentQuestion.troubleRight++;
+                correctAnswers++;
+                currentStreak++;
+                if (currentStreak > maxStreak) {
+                    maxStreak = currentStreak;
+                }
                 console.log(`Correct answer for ${currentQuestion.a} × ${currentQuestion.b}. troubleRight: ${currentQuestion.troubleRight}`);
             }
+            isCorrect = true;
             clearFeedback();
             randomQuestionsPool.splice(randomQuestionsPool.indexOf(currentQuestion), 1);
             console.log('Removed question from random pool.');
             saveProgress();
-            updateProgressDisplay();
+            updateFlaggedProgressDisplay();
+            updateSessionProgressDisplay();
             displayQuestion();
         } else {
             if (isFlagged) {
                 currentQuestion.troubleWrong++;
                 currentQuestion.lastWrongAnswer = userAnswer; // Store last wrong answer
+                currentStreak = 0; // Reset streak on wrong answer
                 console.log(`Wrong answer for flagged combination ${currentQuestion.a} × ${currentQuestion.b}. troubleWrong: ${currentQuestion.troubleWrong}, lastWrongAnswer: ${currentQuestion.lastWrongAnswer}`);
                 if (currentQuestion.troubleWrong >= 3) {
                     showHint(currentQuestion.lastWrongAnswer);
@@ -230,6 +293,7 @@ function handleSubmit() {
             } else {
                 currentQuestion.troubleWrong++;
                 currentQuestion.lastWrongAnswer = userAnswer; // Store last wrong answer
+                currentStreak = 0; // Reset streak on wrong answer
                 console.log(`Wrong answer for ${currentQuestion.a} × ${currentQuestion.b}. troubleWrong: ${currentQuestion.troubleWrong}, lastWrongAnswer: ${currentQuestion.lastWrongAnswer}`);
                 if (currentQuestion.troubleWrong >= 3) {
                     showHint(currentQuestion.lastWrongAnswer);
@@ -243,7 +307,19 @@ function handleSubmit() {
         }
     }
 
+    const answerEndTime = Date.now(); // End time for response
+    const responseTime = (answerEndTime - answerStartTime) / 1000; // in seconds
+    totalResponseTime += responseTime;
+    averageResponseTime = (totalResponseTime / totalQuestions).toFixed(2);
+
+    totalQuestions++;
+    correctAnswers += isCorrect ? 1 : 0; // Already incremented above if correct
+    updateSessionStats(isCorrect, responseTime);
+    updateSessionProgressDisplay(); // Update session stats in progress box
+
     answerInput.value = '';
+    updateFlaggedProgressDisplay();
+    saveProgress();
 }
 
 function getTroublesomeIndex(question) {
@@ -340,7 +416,7 @@ function updateFlaggedCombination(question, outcome) {
         }
     }
     saveProgress();
-    updateProgressDisplay();
+    updateFlaggedProgressDisplay();
 }
 
 function clearFeedback() {
@@ -374,8 +450,86 @@ answerInput.addEventListener('keypress', function (e) {
 });
 resetButton.addEventListener('click', handleReset);
 
+// Toggle Visibility of Progress Boxes
+toggleButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const targetId = button.getAttribute('data-target');
+        const targetBox = document.getElementById(targetId);
+        if (targetBox.style.display === 'none') {
+            targetBox.style.display = 'block';
+            button.textContent = 'Hide';
+        } else {
+            targetBox.style.display = 'none';
+            button.textContent = 'Show';
+        }
+    });
+});
+
+// Sleep Indicator Functions
+function showSleepIndicator() {
+    sleepIndicator.hidden = false;
+}
+
+function hideSleepIndicator() {
+    sleepIndicator.hidden = true;
+}
+
+function resetSleepTimer() {
+    hideSleepIndicator();
+    if (sleepTimer) {
+        clearTimeout(sleepTimer);
+    }
+    sleepTimer = setTimeout(showSleepIndicator, sleepTimeout);
+}
+
+// Session Stats Functions
+function updateSessionStats(isCorrect, responseTime) {
+    if (isCorrect) {
+        correctAnswers++;
+        currentStreak++;
+        if (currentStreak > maxStreak) {
+            maxStreak = currentStreak;
+        }
+    } else {
+        currentStreak = 0;
+    }
+    totalResponseTime += responseTime;
+    averageResponseTime = (totalResponseTime / totalQuestions).toFixed(2);
+}
+
+function displaySessionStats() {
+    const masteryRate = ((correctAnswers / totalQuestions) * 100).toFixed(1) || 0;
+    const masteryText = `Mastery: ${masteryRate}% 🏅`;
+
+    const questionsAnsweredText = `Questions Answered: ${totalQuestions} | Correct: ${correctAnswers}`;
+
+    const currentPhase = currentTableIndex < multiplicationTables.length ? `Phase: ${multiplicationTables[currentTableIndex].table} Times` : `Phase: Completed`;
+
+    const streakText = `Streak: ${currentStreak} 🔥`;
+
+    const avgResponseTimeText = `Avg Response Time: ${averageResponseTime}s ⏱️`;
+
+    // Clear previous stats
+    sessionProgressElement.innerHTML = '';
+
+    // Append new stats
+    sessionProgressElement.innerHTML += `${masteryText}<br>`;
+    sessionProgressElement.innerHTML += `${questionsAnsweredText}<br>`;
+    sessionProgressElement.innerHTML += `${currentPhase}<br>`;
+    sessionProgressElement.innerHTML += `${streakText}<br>`;
+    sessionProgressElement.innerHTML += `${avgResponseTimeText}`;
+    console.log('Updated session progress display:', sessionProgressElement.innerHTML);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     loadProgress();
-    //updateProgressDisplay();
     displayQuestion();
+    updateFlaggedProgressDisplay();
+    updateSessionProgressDisplay(); // Initialize session stats display
+    resetSleepTimer(); // Start sleep timer on load
+
+    // Initially show progress boxes for a few seconds
+    setTimeout(() => {
+        // They are already visible by default
+    }, 3000);
 });
