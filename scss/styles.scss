@@ -1,5 +1,3 @@
-// file: scss/styles.scss
-
 @import "utils/variables";
 
 // Import the 'Rubik' font for the navigation bar
@@ -240,7 +238,6 @@ h1 {
 
   // Blink animation for sleep indicator
   @keyframes blink {
-
     0%,
     50%,
     100% {
@@ -310,6 +307,50 @@ h1 {
       color: lighten($color-link, 20%);
     }
   }
+
+  /* Burger Menu Button Styles */
+  .burger {
+    display: none; // Hidden by default (visible on mobile via media query)
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: $color-link;
+    transition: color 0.3s ease;
+
+    &:hover,
+    &:focus {
+      color: lighten($color-link, 20%);
+    }
+
+    @media (max-width: $screen-tablet) {
+      display: block; // Show on small screens
+    }
+  }
+
+  @media (max-width: $screen-tablet) {
+    ul {
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background-color: $color-header-bg;
+      height: 0;
+      overflow: hidden;
+      transition: height 0.5s ease;
+      z-index: 10; // Ensure the menu appears above other content
+    }
+
+    ul.active {
+      height: auto; // Automatically adjust height based on content
+    }
+
+    /* Optional: Adjust the positioning of the theme toggle on mobile */
+    .theme-toggle {
+      margin-top: 1rem;
+    }
+  }
 }
 
 .footer {
@@ -352,11 +393,11 @@ h1 {
   }
 
   .nav-bar ul.active {
-    height: 200px;
+    height: auto; // Adjusted to auto for dynamic height
   }
 
   .burger {
-    display: flex;
+    display: block;
   }
 }
 

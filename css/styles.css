@@ -186,7 +186,8 @@ h1 {
   align-items: center;
   position: relative;
   border-radius: 15px;
-  overflow: hidden; }
+  overflow: hidden;
+  /* Burger Menu Button Styles */ }
   .nav-bar ul {
     display: flex;
     list-style-type: none;
@@ -214,6 +215,37 @@ h1 {
     transition: color 0.3s ease; }
     .nav-bar .theme-toggle:hover {
       color: #b3b3b3; }
+  .nav-bar .burger {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: gray;
+    transition: color 0.3s ease; }
+    .nav-bar .burger:hover, .nav-bar .burger:focus {
+      color: #b3b3b3; }
+    @media (max-width: 768px) {
+      .nav-bar .burger {
+        display: block; } }
+  @media (max-width: 768px) {
+    .nav-bar {
+      /* Optional: Adjust the positioning of the theme toggle on mobile */ }
+      .nav-bar ul {
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #747070;
+        height: 0;
+        overflow: hidden;
+        transition: height 0.5s ease;
+        z-index: 10; }
+      .nav-bar ul.active {
+        height: auto; }
+      .nav-bar .theme-toggle {
+        margin-top: 1rem; } }
 
 .footer {
   margin-top: 20rem;
@@ -248,10 +280,10 @@ h1 {
     transition: height 0.5s ease; }
 
   .nav-bar ul.active {
-    height: 200px; }
+    height: auto; }
 
   .burger {
-    display: flex; } }
+    display: block; } }
 .division-table input {
   text-align: center;
   width: 3ch; }

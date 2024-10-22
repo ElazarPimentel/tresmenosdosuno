@@ -1,26 +1,25 @@
 <!-- file: division-short.html -->
-<!-- I love chocolate -->
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-H9849DFX8T"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-H9849DFX8T');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H9849DFX8T"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-H9849DFX8T');
+    </script>
+    
     <!-- Existing head content -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
         content="Learn multiplication, division, square roots, and algebraic equations with an interactive and emoji-based platform.">
     <meta name="keywords" content="math, multiplication, division, square roots, algebra, interactive learning">
-    <title>2x2</title>
+    <title>Short Division Practice</title>
     <link rel="stylesheet" href="css/styles.css">
     <!-- Include Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,6 +29,11 @@
 <body class="container-main" aria-labelledby="main-title">
     <header>
         <nav class="nav-bar" role="navigation" aria-label="Main navigation">
+            <!-- Burger Menu Button -->
+            <button class="burger" aria-label="Toggle navigation menu">
+                ☰
+            </button>
+
             <ul>
                 <li><a href="index.html" aria-label="Home">✖️</a></li>
                 <li><a href="short-division.html" aria-label="Division Section">➗🗂️</a></li>
@@ -43,15 +47,45 @@
     </header>
 
     <main class="content" role="main">
+        <!-- Added main H1 title for SEO and structure -->
+        <h1 id="main-title">Practice Short Division!</h1>
+
         <section class="question-section">
             <div id="feedback" class="feedback" aria-live="polite"></div>
             <div id="question-container">
-                <p id="question" class="question-text" aria-live="polite">12 × 2</p>
+                <p id="question" class="question-text" aria-live="polite">12 ÷ 2</p>
                 <label for="answer-input"></label>
                 <input type="number" id="answer-input" maxlength="4" aria-label="Answer input" autofocus=""> <br>
                 <button id="submit-button" class="submit-btn" aria-label="Submit your answer">📤</button>
             </div>
             <button id="reset-button" class="reset-button" aria-label="Reset your progress">🗑️</button>
+
+            <!-- Progress Boxes -->
+            <div class="progress-containers">
+                <!-- Flagged Questions Box -->
+                <div id="flagged-box" class="progress-box flagged-box">
+                    <h3>Flagged Questions 📌</h3>
+                    <div id="flagged-progress" class="progress-content">
+                        No flagged questions. Keep it up! 🎉
+                    </div>
+                    <button class="toggle-button" data-target="flagged-box">Hide</button>
+                </div>
+
+                <!-- Session Stats Box -->
+                <div id="session-box" class="progress-box session-box">
+                    <h3>Session Stats 📊</h3>
+                    <div id="session-progress" class="progress-content">
+                        Mastery: 0% 🏅<br>
+                        Questions Answered: 0 | Correct: 0<br>
+                        Phase: 2 Times<br>
+                        Streak: 0 🔥
+                    </div>
+                    <button class="toggle-button" data-target="session-box">Hide</button>
+                </div>
+            </div>
+
+            <!-- Sleep Emoji Indicator -->
+            <div id="sleep-indicator" class="sleep-indicator" aria-live="polite" hidden>😴</div>
         </section>
     </main>
 
@@ -117,6 +151,7 @@
         </div>
     </footer>
 
+    <!-- Include JavaScript Files -->
     <script defer src="scripts/main.js"></script>
     <script defer src="scripts/short-division.js"></script>
 </body>
