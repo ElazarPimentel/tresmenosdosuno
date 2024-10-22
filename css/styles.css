@@ -27,7 +27,7 @@ a {
     color: #007BFF; }
 
 h1 {
-  font-size: 3rem; }
+  font-size: 1.4rem; }
 
 .container-main {
   width: 100%;
@@ -42,8 +42,6 @@ h1 {
   flex-direction: column;
   align-items: center;
   margin-top: 2rem; }
-  .question-section #progress {
-    margin-bottom: 1rem; }
   .question-section #feedback {
     height: 2.5rem;
     overflow: hidden;
@@ -60,7 +58,10 @@ h1 {
     width: 100%; }
     .question-section #question-container #question {
       font-size: 2rem;
-      margin-bottom: 1rem; }
+      margin-bottom: 1rem;
+      transition: all 1s ease; }
+      .question-section #question-container #question.animate-transform {
+        animation: transformEquation 1s forwards; }
     .question-section #question-container input#answer-input {
       padding: 0.5rem;
       font-size: 1.5rem;
@@ -68,7 +69,13 @@ h1 {
       text-align: center;
       margin-bottom: 1rem;
       -moz-appearance: textfield;
-      appearance: textfield; }
+      appearance: textfield;
+      border: 2px solid gray;
+      border-radius: 5px;
+      transition: border-color 0.3s ease; }
+      .question-section #question-container input#answer-input:focus {
+        border-color: #b3b3b3;
+        outline: none; }
     .question-section #question-container input::-webkit-outer-spin-button,
     .question-section #question-container input::-webkit-inner-spin-button {
       -webkit-appearance: none;
@@ -99,23 +106,76 @@ h1 {
     transition: background-color 0.3s ease; }
     .question-section .reset-button:hover {
       background-color: #0077ea; }
-  .question-section #progress-box {
+  .question-section .progress-containers {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-top: 1rem; }
+    @media (max-width: 768px) {
+      .question-section .progress-containers {
+        flex-direction: column; } }
+  .question-section .progress-box {
     width: 300px;
-    height: 150px;
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     overflow: hidden;
-    padding: 10px;
+    padding: 15px;
     position: relative;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    margin-top: 1rem; }
-  .question-section .progress {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    color: rgba(255, 255, 255, 0.7);
-    animation: scrollUp 8s linear infinite; }
+    transition: all 0.3s ease; }
+    .question-section .progress-box h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem; }
+    .question-section .progress-box .progress-content {
+      max-height: 100px;
+      overflow-y: auto;
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.9);
+      animation: fadeIn 0.5s ease-in-out; }
+    .question-section .progress-box .toggle-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      font-size: 1rem;
+      transition: color 0.3s ease; }
+      .question-section .progress-box .toggle-button:hover {
+        color: white; }
+    .question-section .progress-box.flagged-box {
+      background-color: rgba(255, 0, 0, 0.1); }
+    .question-section .progress-box.session-box {
+      background-color: rgba(0, 123, 255, 0.1); }
+@keyframes transformEquation {
+  0% {
+    transform: scale(1);
+    color: #FFFFFF; }
+  50% {
+    transform: scale(1.2);
+    color: white; }
+  100% {
+    transform: scale(1);
+    color: #FFFFFF; } }
+@keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+@keyframes blink {
+  0%,
+    50%,
+    100% {
+    opacity: 1; }
+  25%,
+    75% {
+    opacity: 0.5; } }
+  .question-section .sleep-indicator {
+    margin-top: 1rem;
+    font-size: 2rem;
+    animation: blink 1s infinite; }
 
 /* Navigation Bar Styles */
 .nav-bar {
@@ -200,14 +260,14 @@ h1 {
 .division-table #question td:nth-child(n+8):nth-child(-n+14) {
   border-bottom: 2px solid gray; }
 
-.copyright {
+copyright {
   background-color: #121212;
   color: #FFFFFF;
   border: 1px solid gray;
   border-radius: 8px;
   padding: 10px 15px;
   text-align: left; }
-  .light-theme .copyright {
+  .light-theme copyright {
     background-color: #f0f0f0;
     color: #000000;
     border-color: #007BFF; }

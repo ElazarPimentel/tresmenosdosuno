@@ -3,26 +3,6 @@
 console.log(`Perfect Square Roots Practice - Script Loaded at ${new Date().toLocaleString()}`);
 
 const diagnosticsMode = false;
-let currentPhase = '';
-
-// Define multiplication tables from 2x to 12x
-const multiplicationTables = [];
-for (let table = 2; table <= 12; table++) {
-    const questions = [];
-    for (let multiplier = 2; multiplier <= 12; multiplier++) {
-        questions.push({
-            a: table,
-            b: multiplier,
-            correctAttempts: 0,
-            isInitiallyCorrect: true,
-            troubleRight: 0,
-            troubleWrong: 0,
-            lastWrongAnswer: null, // Added property
-        });
-    }
-    multiplicationTables.push({ table, questions });
-}
-console.log('Initialized multiplicationTables:', multiplicationTables);
 
 // Define perfect square roots
 const perfectSquareRoots = [
@@ -37,15 +17,19 @@ const perfectSquareRoots = [
     { number: 100, squareRoot: 10 },
 ];
 
-let currentTableIndex = 0;
-let currentQuestionIndex = 0; // To track multiplication questions within a table
+// Session Tracking Variables
+let currentSquareIndex = 0;
+let currentQuestionIndex = 0; // To track multiplication questions within a square
 let randomQuestionsPool = [];
 let isRandomPhase = false;
 let isReinforcementMode = false;
 let currentQuestion = null;
 let flaggedCombinations = [];
 
-// Session Tracking Variables
+// Phase Tracking Variable
+let currentPhase = 'multiplication'; // 'multiplication' or 'perfectSquare'
+
+// Session Stats
 let totalQuestions = 0;
 let correctAnswers = 0;
 let squareRootsLearned = 0;
@@ -77,7 +61,7 @@ function loadProgress() {
         const savedData = localStorage.getItem('perfectSquareRootsProgress');
         if (savedData) {
             const parsedData = JSON.parse(savedData);
-            currentTableIndex = parsedData.currentTableIndex || 0;
+            currentSquareIndex = parsedData.currentSquareIndex || 0;
             currentQuestionIndex = parsedData.currentQuestionIndex || 0;
             squareRootsLearned = parsedData.squareRootsLearned || 0;
             parsedData.perfectSquareRoots.forEach((savedItem, index) => {
@@ -100,7 +84,7 @@ function saveProgress() {
     console.log('Saving progress to localStorage');
     try {
         const dataToSave = {
-            currentTableIndex,
+            currentSquareIndex,
             currentQuestionIndex,
             squareRootsLearned,
             perfectSquareRoots: perfectSquareRoots.map(ps => ({
@@ -141,7 +125,7 @@ function updateFlaggedProgressDisplay() {
 
 // Update session stats display
 function updateSessionProgressDisplay() {
-    const masteryRate = ((correctAnswers / totalQuestions) * 100).toFixed(1) || 0;
+    const masteryRate = totalQuestions > 0 ? ((correctAnswers / totalQuestions) * 100).toFixed(1) : '0.0';
     const masteryText = `Mastery: ${masteryRate}% 🏅`;
 
     const questionsAnsweredText = `Questions Answered: ${totalQuestions} | Correct: ${correctAnswers}`;
@@ -168,7 +152,7 @@ function updateSessionProgressDisplay() {
 function displayQuestion() {
     resetSleepTimer(); // Reset sleep timer on new question
 
-    if (currentTableIndex >= perfectSquareRoots.length) {
+    if (currentSquareIndex >= perfectSquareRoots.length) {
         questionElement.textContent = '🎉 You have mastered all perfect square roots!';
         answerInput.style.display = 'none';
         submitButton.style.display = 'none';
@@ -177,8 +161,8 @@ function displayQuestion() {
         return;
     }
 
-    const currentItem = perfectSquareRoots[currentTableIndex];
-    console.log(`Displaying number ${currentItem.number}, square root index ${currentTableIndex}`);
+    const currentItem = perfectSquareRoots[currentSquareIndex];
+    console.log(`Displaying number ${currentItem.number}, square root index ${currentSquareIndex}`);
 
     if (!isRandomPhase) {
         if (currentQuestionIndex >= 2) { // After two multiplication questions
@@ -196,7 +180,7 @@ function displayQuestion() {
     } else {
         if (randomQuestionsPool.length === 0) {
             isRandomPhase = false;
-            currentTableIndex++;
+            currentSquareIndex++;
             currentQuestionIndex = 0;
             displayQuestion();
             return;
@@ -204,7 +188,7 @@ function displayQuestion() {
 
         const randomIndex = Math.floor(Math.random() * randomQuestionsPool.length);
         currentQuestion = randomQuestionsPool[randomIndex];
-        questionElement.textContent = currentQuestion.type === 'multiplication' ? `${currentQuestion.a} × ${currentQuestion.b}` : `What is the square root of ${currentQuestion.number}?`;
+        questionElement.textContent = currentQuestion.type === 'multiplication' ? `${currentQuestion.a} × ${currentQuestion.b}` : `√${currentQuestion.number}?`;
         console.log('Random question selected:', questionElement.textContent);
     }
 
@@ -220,8 +204,8 @@ function displayQuestion() {
 // Ask a perfect square question
 function askPerfectSquare(item) {
     currentQuestion = { type: 'perfectSquare', number: item.number, squareRoot: item.squareRoot };
-    questionElement.textContent = `What is the square root of ${item.number}?`;
-    console.log('Asking perfect square question:', `What is the square root of ${item.number}?`);
+    questionElement.textContent = `√${item.number}?`;
+    console.log('Asking perfect square question:', `√${item.number}?`);
     answerInput.focus();
 }
 
@@ -294,7 +278,11 @@ function handleSubmit() {
         }
 
         showCorrectFeedback();
-        moveToNextQuestion();
+        if (questionType === 'multiplication') {
+            transformQuestionDisplay(); // Animate transformation only for multiplication questions
+        } else {
+            moveToNextQuestion(); // Directly move to next question for perfect square questions
+        }
     } else {
         isCorrect = false;
         currentStreak = 0;
@@ -307,6 +295,7 @@ function handleSubmit() {
     totalResponseTime += responseTime;
     averageResponseTime = (totalResponseTime / totalQuestions).toFixed(2);
 
+    updateSessionStats(isCorrect, responseTime);
     updateSessionProgressDisplay();
     saveProgress();
 
@@ -322,20 +311,20 @@ function handleWrongAnswer(userAnswer) {
         feedbackDiv.innerHTML = '';
         if (currentQuestion.type === 'perfectSquare') {
             // After three wrong attempts, give a nudge
-            perfectSquareRoots[currentTableIndex].troubleWrong++;
-            if (perfectSquareRoots[currentTableIndex].troubleWrong >= 3) {
+            perfectSquareRoots[currentSquareIndex].troubleWrong++;
+            if (perfectSquareRoots[currentSquareIndex].troubleWrong >= 3) {
                 feedbackDiv.innerHTML = `❌ Not ${userAnswer}. Try again!`;
                 console.log(`Displayed nudge: Not ${userAnswer}.`);
-                perfectSquareRoots[currentTableIndex].troubleWrong = 0; // Reset after nudge
+                perfectSquareRoots[currentSquareIndex].troubleWrong = 0; // Reset after nudge
             }
         } else {
             // For multiplication questions
-            const multQuestion = multiplicationTables[currentTableIndex].questions[currentQuestionIndex];
-            multQuestion.troubleWrong++;
-            if (multQuestion.troubleWrong >= 3) {
+            perfectSquareRoots[currentSquareIndex].troubleWrong++;
+            if (perfectSquareRoots[currentSquareIndex].troubleWrong >= 3) {
+                const correctAnswer = currentQuestion.a * currentQuestion.b;
                 feedbackDiv.innerHTML = `❌ Not ${userAnswer}. It's ${currentQuestion.a} × ${currentQuestion.b} = ${correctAnswer}`;
                 console.log(`Displayed correct answer after 3 wrong attempts.`);
-                multQuestion.troubleWrong = 0; // Reset after showing correct answer
+                perfectSquareRoots[currentSquareIndex].troubleWrong = 0; // Reset after showing correct answer
             }
         }
     }, 2000);
@@ -343,12 +332,32 @@ function handleWrongAnswer(userAnswer) {
 
 // Show correct answer feedback
 function showCorrectFeedback() {
-    feedbackDiv.innerHTML = '✅ Correct!';
+    // feedbackDiv.innerHTML = '✅ Correct!';
     console.log('Displayed correct feedback.');
 
     setTimeout(() => {
         feedbackDiv.innerHTML = '';
-    }, 1000);
+    }, 0);
+}
+
+// Transform the question display from multiplication to square root
+function transformQuestionDisplay() {
+    const originalText = `${currentQuestion.a} × ${currentQuestion.b} = ${currentQuestion.a * currentQuestion.b}`;
+    const transformedText = `√${currentQuestion.a * currentQuestion.b} = ${currentQuestion.a}`;
+    
+    // Add animation class
+    questionElement.classList.add('animate-transform');
+
+    // After animation ends, change the text
+    setTimeout(() => {
+        questionElement.textContent = transformedText;
+        questionElement.classList.remove('animate-transform');
+        console.log('Transformed question display to square root.');
+        // After transformation, move to the next question after a brief delay
+        setTimeout(() => {
+            moveToNextQuestion();
+        }, 1500);
+    }, 1000); // Duration should match the CSS animation duration
 }
 
 // Move to the next question based on phase
@@ -362,22 +371,28 @@ function moveToNextQuestion() {
 
         if (randomQuestionsPool.length === 0) {
             isRandomPhase = false;
-            currentTableIndex++;
+            currentSquareIndex++;
+            currentQuestionIndex = 0;
         }
     } else {
         if (currentPhase === 'perfectSquare') {
+            // After perfect square, move to next multiplication sequence
             currentPhase = 'multiplication';
+            currentSquareIndex++;
+            currentQuestionIndex = 0;
         } else {
             currentQuestionIndex++;
             if (currentQuestionIndex >= 2) {
-                // All two multiplication questions done, move to perfect square
+                // After two multiplication questions, move to perfect square
                 currentPhase = 'perfectSquare';
+                displayQuestion();
+                return;
             }
         }
     }
 
     // Check if all perfect squares are learned
-    if (squareRootsLearned >= perfectSquareRoots.length) {
+    if (currentSquareIndex >= perfectSquareRoots.length) {
         questionElement.textContent = '🎉 You have mastered all perfect square roots!';
         answerInput.style.display = 'none';
         submitButton.style.display = 'none';
@@ -497,6 +512,35 @@ function autoSubmitCorrectAnswer(question) {
     answerInput.value = correctAnswer;
     console.log(`Auto-submitting correct answer for ${question.type === 'perfectSquare' ? `square root of ${question.number}` : `${question.a} × ${question.b}`}: ${correctAnswer}`);
     handleSubmit();
+}
+
+// Transform the question display from multiplication to square root
+function transformQuestionDisplay() {
+    const originalText = `${currentQuestion.a} × ${currentQuestion.b} = ${currentQuestion.a * currentQuestion.b}`;
+    const transformedText = `√${currentQuestion.a * currentQuestion.b} = ${currentQuestion.a}`;
+    
+    // Add animation class
+    questionElement.classList.add('animate-transform');
+
+    // After animation ends, change the text
+    setTimeout(() => {
+        questionElement.textContent = transformedText;
+        questionElement.classList.remove('animate-transform');
+        console.log('Transformed question display to square root.');
+        // After transformation, move to the next question after a brief delay
+        setTimeout(() => {
+            moveToNextQuestion();
+        }, 3000);
+    }, 1500); // Duration should match the CSS animation duration
+}
+
+// Update session stats
+function updateSessionStats(isCorrect, responseTime) {
+    if (isCorrect) {
+        squareRootsLearned++;
+    }
+    totalResponseTime += responseTime;
+    averageResponseTime = (totalResponseTime / totalQuestions).toFixed(2);
 }
 
 // Event Listeners
