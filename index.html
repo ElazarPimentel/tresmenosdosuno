@@ -1,4 +1,3 @@
-<!-- file: index.html -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,18 +8,51 @@
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
         gtag('config', 'G-H9849DFX8T');
     </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Learn multiplication, division, square roots, and algebraic equations with an interactive and emoji-based platform.">
-    <meta name="keywords" content="math, multiplication, division, square roots, algebra, interactive learning">
-    <title>2x2</title>
+        content="Join our interactive platform to master multiplication, division, square roots, and algebra with fun emoji-based tools and spaced repetition for all ages. Start learning today!">
+    <meta name="author" content="Alessio Aguirre Pimentel">
+    
+    <title>Interactive Math Learning: Multiplication, Division & Algebra Made Fun</title>
+
+    <!-- Open Graph Meta Tags for Social Media -->
+    <meta property="og:title" content="Interactive Math Learning: Multiplication, Division & Algebra">
+    <meta property="og:description" content="Master math skills with fun emoji-based tools and spaced repetition. Suitable for all ages.">
+    <meta property="og:url" content="https://www.tresmenosdos.uno">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://www.tresmenosdos.uno/images/og-image.jpg">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Interactive Math Learning: Multiplication, Division & Algebra">
+    <meta name="twitter:description" content="Master math skills with fun emoji-based tools and spaced repetition. Suitable for all ages.">
+    <meta name="twitter:image" content="https://www.tresmenosdos.uno/images/twitter-card.jpg">
+
+    <!-- Canonical Tag to Prevent Duplicate Content -->
+    <link rel="canonical" href="https://www.tresmenosdos.uno/index.html">
+
     <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap" rel="stylesheet">
+
+    <!-- Schema.org Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "Learn Math the Fun Way",
+      "url": "https://www.tresmenosdos.uno",
+      "logo": "https://www.tresmenosdos.uno/images/logo.png",
+      "description": "Interactive platform to learn multiplication, division, square roots, and algebra with fun emoji-based tools and spaced repetition for all ages."
+    }
+    </script>
+
+    <!-- Favicon -->
+    <link rel="icon" href="https://www.tresmenosdos.uno/favicon.ico" type="image/x-icon">
 </head>
 
 <body class="container-main" aria-labelledby="main-title">
@@ -28,17 +60,20 @@
         <nav class="nav-bar" role="navigation" aria-label="Main navigation">
             <ul>
                 <li><a href="index.html" aria-label="Home">✖️</a></li>
-                <li><a href="division-short.html" aria-label="Division Section">➗🗂️</a></li>
-                <li><a href="division-long.html" aria-label="Division Section">➗✎</a></li>
-                <li><a href="square-root01.html" aria-label="Square Roots Section">√</a></li>
-                <li><a href="algebraic-equation01.html" aria-label="Algebraic Equations Section">2X = 3x9</a></li>
-                <li><a href="substraction.html" aria-label="Subtraction Section">➖</a></li>
+                <li><a href="short-division.html" aria-label="Division Section">➗🗂️</a></li>
+                <li><a href="long-division.html" aria-label="Division Section">➗✎</a></li>
+                <li><a href="perfect-square-roots-practice.html" aria-label="Perfect Square Roots Section">√</a></li>
+                <li><a href="algebraic-equations.html" aria-label="Algebraic Equations Section">2X = 3x9</a></li>
+                <li><a href="subtraction-practice.html" aria-label="Subtraction Section">➖</a></li>
             </ul>
             <button id="theme-toggle-button" class="theme-toggle" aria-label="Toggle light and dark mode">|☯️|</button>
         </nav>
     </header>
 
     <main class="content" role="main">
+        <!-- Added main H1 title for SEO and structure -->
+        <h1 id="main-title">Learn or remember your multiplication tables!</h1>
+
         <section class="question-section">
             <div id="feedback" class="feedback" aria-live="polite"></div>
             <div id="question-container">
@@ -55,7 +90,7 @@
                 <div id="flagged-box" class="progress-box flagged-box">
                     <h3>Flagged Questions 📌</h3>
                     <div id="flagged-progress" class="progress-content">
-                        Watching you: 👀
+                        No flagged questions. Keep it up! 🎉
                     </div>
                     <button class="toggle-button" data-target="flagged-box">Hide</button>
                 </div>
@@ -112,7 +147,7 @@
 
         <div class="copyright">
             <p>
-                Derechos de Autor © 2024 - Alessio Aguirre Pimentel (también conocido como Elazar Pimentel). Todos los
+                Derechos de Autor © 4 2024 - Alessio Aguirre Pimentel (también conocido como Elazar Pimentel). Todos los
                 derechos reservados.
                 Esta obra está protegida por la Ley de Propiedad Intelectual de la República Argentina, el Convenio
                 Internacional de Berna para la Protección de las Obras Literarias y Artísticas, así como por otras leyes
@@ -141,8 +176,8 @@
     </footer>
 
     <!-- Swap the order: load mult01.js before main.js -->
-    <script defer src="js/mult01.js"></script>
-    <script defer src="js/main.js"></script>
+    <script defer src="scripts/multiplication-practice.js"></script>
+    <script defer src="scripts/main.js"></script>
 </body>
 
 </html>

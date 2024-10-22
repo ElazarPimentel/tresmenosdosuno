@@ -1,8 +1,11 @@
-// file: js/mult01.js
-console.log(`Program starts at ${new Date().toLocaleString()}`);
+// file: scripts/perfect-square-roots-practice.js
+
+console.log(`Perfect Square Roots Practice - Script Loaded at ${new Date().toLocaleString()}`);
 
 const diagnosticsMode = false;
+let currentPhase = '';
 
+// Define multiplication tables from 2x to 12x
 const multiplicationTables = [];
 for (let table = 2; table <= 12; table++) {
     const questions = [];
@@ -21,8 +24,21 @@ for (let table = 2; table <= 12; table++) {
 }
 console.log('Initialized multiplicationTables:', multiplicationTables);
 
+// Define perfect square roots
+const perfectSquareRoots = [
+    { number: 4, squareRoot: 2 },
+    { number: 9, squareRoot: 3 },
+    { number: 16, squareRoot: 4 },
+    { number: 25, squareRoot: 5 },
+    { number: 36, squareRoot: 6 },
+    { number: 49, squareRoot: 7 },
+    { number: 64, squareRoot: 8 },
+    { number: 81, squareRoot: 9 },
+    { number: 100, squareRoot: 10 },
+];
+
 let currentTableIndex = 0;
-let currentQuestionIndex = 0;
+let currentQuestionIndex = 0; // To track multiplication questions within a table
 let randomQuestionsPool = [];
 let isRandomPhase = false;
 let isReinforcementMode = false;
@@ -32,6 +48,7 @@ let flaggedCombinations = [];
 // Session Tracking Variables
 let totalQuestions = 0;
 let correctAnswers = 0;
+let squareRootsLearned = 0;
 let currentStreak = 0;
 let maxStreak = 0;
 let totalResponseTime = 0;
@@ -42,6 +59,7 @@ let startTime = Date.now();
 let sleepTimer = null;
 const sleepTimeout = 4000; // 4 seconds
 
+// DOM Elements
 const feedbackDiv = document.getElementById('feedback');
 const questionElement = document.getElementById('question');
 const answerInput = document.getElementById('answer-input');
@@ -52,23 +70,21 @@ const sessionProgressElement = document.getElementById('session-progress');
 const sleepIndicator = document.getElementById('sleep-indicator');
 const toggleButtons = document.querySelectorAll('.toggle-button');
 
+// Load progress from localStorage
 function loadProgress() {
     console.log('Loading progress from localStorage');
     try {
-        const savedData = localStorage.getItem('multiplicationProgress');
+        const savedData = localStorage.getItem('perfectSquareRootsProgress');
         if (savedData) {
             const parsedData = JSON.parse(savedData);
             currentTableIndex = parsedData.currentTableIndex || 0;
-            console.log('Loaded currentTableIndex:', currentTableIndex);
-            parsedData.multiplicationTables.forEach((savedTable, index) => {
-                if (multiplicationTables[index]) {
-                    multiplicationTables[index].questions.forEach((question, qIndex) => {
-                        question.correctAttempts = savedTable.questions[qIndex].correctAttempts;
-                        question.isInitiallyCorrect = savedTable.questions[qIndex].isInitiallyCorrect;
-                        question.troubleRight = savedTable.questions[qIndex].troubleRight;
-                        question.troubleWrong = savedTable.questions[qIndex].troubleWrong;
-                        question.lastWrongAnswer = savedTable.questions[qIndex].lastWrongAnswer || null; // Load lastWrongAnswer
-                    });
+            currentQuestionIndex = parsedData.currentQuestionIndex || 0;
+            squareRootsLearned = parsedData.squareRootsLearned || 0;
+            parsedData.perfectSquareRoots.forEach((savedItem, index) => {
+                if (perfectSquareRoots[index]) {
+                    perfectSquareRoots[index].troubleRight = savedItem.troubleRight || 0;
+                    perfectSquareRoots[index].troubleWrong = savedItem.troubleWrong || 0;
+                    perfectSquareRoots[index].lastWrongAnswer = savedItem.lastWrongAnswer || null;
                 }
             });
             flaggedCombinations = parsedData.flaggedCombinations || [];
@@ -79,21 +95,29 @@ function loadProgress() {
     }
 }
 
+// Save progress to localStorage
 function saveProgress() {
     console.log('Saving progress to localStorage');
     try {
         const dataToSave = {
             currentTableIndex,
-            multiplicationTables,
+            currentQuestionIndex,
+            squareRootsLearned,
+            perfectSquareRoots: perfectSquareRoots.map(ps => ({
+                troubleRight: ps.troubleRight,
+                troubleWrong: ps.troubleWrong,
+                lastWrongAnswer: ps.lastWrongAnswer
+            })),
             flaggedCombinations,
         };
-        localStorage.setItem('multiplicationProgress', JSON.stringify(dataToSave));
+        localStorage.setItem('perfectSquareRootsProgress', JSON.stringify(dataToSave));
         console.log('Progress saved:', dataToSave);
     } catch (error) {
         console.error('Error saving progress:', error);
     }
 }
 
+// Determine frequency based on troublesome index
 function determineFrequency(troublesomeIndex) {
     if (troublesomeIndex >= 0.5) {
         return 3;
@@ -104,6 +128,7 @@ function determineFrequency(troublesomeIndex) {
     }
 }
 
+// Update flagged questions display
 function updateFlaggedProgressDisplay() {
     if (flaggedCombinations.length === 0) {
         flaggedProgressElement.innerHTML = 'No flagged questions. Keep it up! 🎉';
@@ -114,13 +139,14 @@ function updateFlaggedProgressDisplay() {
     console.log('Updated flagged progress display:', flaggedProgressElement.innerHTML);
 }
 
+// Update session stats display
 function updateSessionProgressDisplay() {
     const masteryRate = ((correctAnswers / totalQuestions) * 100).toFixed(1) || 0;
     const masteryText = `Mastery: ${masteryRate}% 🏅`;
 
     const questionsAnsweredText = `Questions Answered: ${totalQuestions} | Correct: ${correctAnswers}`;
 
-    const currentPhase = currentTableIndex < multiplicationTables.length ? `Phase: ${multiplicationTables[currentTableIndex].table} Times` : `Phase: Completed`;
+    const squareRootsLearnedText = `Square Roots Learned: ${squareRootsLearned}`;
 
     const streakText = `Streak: ${currentStreak} 🔥`;
 
@@ -132,51 +158,54 @@ function updateSessionProgressDisplay() {
     // Append new stats
     sessionProgressElement.innerHTML += `${masteryText}<br>`;
     sessionProgressElement.innerHTML += `${questionsAnsweredText}<br>`;
-    sessionProgressElement.innerHTML += `${currentPhase}<br>`;
+    sessionProgressElement.innerHTML += `${squareRootsLearnedText}<br>`;
     sessionProgressElement.innerHTML += `${streakText}<br>`;
     sessionProgressElement.innerHTML += `${avgResponseTimeText}`;
     console.log('Updated session progress display:', sessionProgressElement.innerHTML);
 }
 
+// Display the current question based on phase
 function displayQuestion() {
     resetSleepTimer(); // Reset sleep timer on new question
 
-    if (currentTableIndex >= multiplicationTables.length) {
-        questionElement.textContent = '✅ You have completed all tables!';
+    if (currentTableIndex >= perfectSquareRoots.length) {
+        questionElement.textContent = '🎉 You have mastered all perfect square roots!';
         answerInput.style.display = 'none';
         submitButton.style.display = 'none';
         resetButton.style.display = 'inline-block';
-        console.log('All tables completed.');
+        console.log('All perfect square roots completed.');
         return;
     }
 
-    const currentTable = multiplicationTables[currentTableIndex];
-    console.log(`Displaying table ${currentTable.table}, question index ${currentQuestionIndex}`);
+    const currentItem = perfectSquareRoots[currentTableIndex];
+    console.log(`Displaying number ${currentItem.number}, square root index ${currentTableIndex}`);
 
     if (!isRandomPhase) {
-        if (currentQuestionIndex >= currentTable.questions.length) {
-            initiateRandomPhase();
+        if (currentQuestionIndex >= 2) { // After two multiplication questions
+            currentQuestionIndex = 0;
+            currentPhase = 'perfectSquare';
+            askPerfectSquare(currentItem);
             return;
         }
 
-        currentQuestion = currentTable.questions[currentQuestionIndex];
+        // Ask two multiplication questions sequentially
+        const multiplier = currentQuestionIndex + 2; // Starting from 2
+        currentQuestion = { a: currentItem.squareRoot, b: currentItem.squareRoot };
         questionElement.textContent = `${currentQuestion.a} × ${currentQuestion.b}`;
-        console.log('Next question:', `${currentQuestion.a} × ${currentQuestion.b}`);
+        console.log('Next multiplication question:', `${currentQuestion.a} × ${currentQuestion.b}`);
     } else {
         if (randomQuestionsPool.length === 0) {
+            isRandomPhase = false;
             currentTableIndex++;
             currentQuestionIndex = 0;
-            isRandomPhase = false;
-            console.log('Random phase completed. Moving to next table:', currentTableIndex);
-            saveProgress();
             displayQuestion();
             return;
         }
 
         const randomIndex = Math.floor(Math.random() * randomQuestionsPool.length);
         currentQuestion = randomQuestionsPool[randomIndex];
-        questionElement.textContent = `${currentQuestion.a} × ${currentQuestion.b}`;
-        console.log('Random question selected:', `${currentQuestion.a} × ${currentQuestion.b}`);
+        questionElement.textContent = currentQuestion.type === 'multiplication' ? `${currentQuestion.a} × ${currentQuestion.b}` : `What is the square root of ${currentQuestion.number}?`;
+        console.log('Random question selected:', questionElement.textContent);
     }
 
     answerInput.focus();
@@ -188,174 +217,190 @@ function displayQuestion() {
     }
 }
 
+// Ask a perfect square question
+function askPerfectSquare(item) {
+    currentQuestion = { type: 'perfectSquare', number: item.number, squareRoot: item.squareRoot };
+    questionElement.textContent = `What is the square root of ${item.number}?`;
+    console.log('Asking perfect square question:', `What is the square root of ${item.number}?`);
+    answerInput.focus();
+}
+
+// Initiate random phase with mixed questions
 function initiateRandomPhase() {
-    console.log(`Initiating random phase for table ${multiplicationTables[currentTableIndex].table}`);
-    const currentTable = multiplicationTables[currentTableIndex];
-    randomQuestionsPool = currentTable.questions.filter((q) => {
-        const troublesomeIndex = getTroublesomeIndex(q);
-        return troublesomeIndex > 0.25;
+    console.log(`Initiating random phase for perfect square roots`);
+    // Prepare randomQuestionsPool with mixed types
+    randomQuestionsPool = [];
+
+    perfectSquareRoots.forEach(item => {
+        // Add the related multiplication question
+        randomQuestionsPool.push({
+            type: 'multiplication',
+            a: item.squareRoot,
+            b: item.squareRoot,
+            number: item.number,
+            squareRoot: item.squareRoot
+        });
+
+        // Add another multiplication that results in a perfect square
+        const additionalMultipliers = [item.squareRoot - 1, item.squareRoot + 1].filter(multiplier => multiplier >= 2 && multiplier <= 12);
+        additionalMultipliers.forEach(multiplier => {
+            randomQuestionsPool.push({
+                type: 'multiplication',
+                a: multiplier,
+                b: multiplier,
+                number: multiplier * multiplier,
+                squareRoot: multiplier
+            });
+        });
     });
 
-    flaggedCombinations.forEach((flagged) => {
-        if (!randomQuestionsPool.some(q => q.a === flagged.a && q.b === flagged.b)) {
-            const tableIndex = flagged.a - 2;
-            const question = multiplicationTables[tableIndex]?.questions.find(q => q.a === flagged.a && q.b === flagged.b);
-            if (question) {
-                randomQuestionsPool.push(question);
-                console.log('Added flagged combination to random pool:', `${question.a} × ${question.b}`);
-            }
-        }
-    });
-
+    // Shuffle the pool
+    randomQuestionsPool = shuffleArray(randomQuestionsPool);
     isRandomPhase = true;
     displayQuestion();
 }
 
+// Handle answer submission
 function handleSubmit() {
     resetSleepTimer(); // Reset sleep timer on submission
 
     const userAnswer = parseInt(answerInput.value, 10);
-    const correctAnswer = currentQuestion.a * currentQuestion.b;
-    console.log(`User answered: ${userAnswer} for ${currentQuestion.a} × ${currentQuestion.b}, correct answer: ${correctAnswer}`);
+    let correctAnswer;
+    let questionType = 'multiplication';
+
+    if (currentQuestion.type === 'perfectSquare') {
+        correctAnswer = currentQuestion.squareRoot;
+        questionType = 'perfectSquare';
+    } else {
+        correctAnswer = currentQuestion.a * currentQuestion.b;
+    }
+
+    console.log(`User answered: ${userAnswer} for ${questionElement.textContent}, correct answer: ${correctAnswer}`);
 
     const answerStartTime = Date.now(); // Start time for response
 
     let isCorrect = false;
 
-    if (!isRandomPhase) {
-        if (userAnswer === correctAnswer) {
-            currentQuestion.troubleRight++;
-            currentQuestion.wrongStreak = 0; // Reset streak on correct answer
-            correctAnswers++;
-            currentStreak++;
-            if (currentStreak > maxStreak) {
-                maxStreak = currentStreak;
-            }
-            isCorrect = true;
-            console.log(`Correct answer for ${currentQuestion.a} × ${currentQuestion.b}. troubleRight: ${currentQuestion.troubleRight}`);
-            clearFeedback();
-            currentQuestionIndex++;
-            displayQuestion();
-        } else {
-            currentQuestion.troubleWrong++;
-            currentQuestion.lastWrongAnswer = userAnswer; // Store last wrong answer
-            currentStreak = 0; // Reset streak on wrong answer
-            console.log(`Wrong answer for ${currentQuestion.a} × ${currentQuestion.b}. troubleWrong: ${currentQuestion.troubleWrong}, lastWrongAnswer: ${currentQuestion.lastWrongAnswer}`);
-            if (currentQuestion.troubleWrong >= 3) {
-                showHint(currentQuestion.lastWrongAnswer);
-                currentQuestion.troubleWrong = 0; // Reset after showing hint
-            } else {
-                showWrongFeedback(correctAnswer);
-            }
-            updateFlaggedCombination(currentQuestion, 'wrong');
-            isReinforcementMode = true;
+    if (userAnswer === correctAnswer) {
+        isCorrect = true;
+        correctAnswers++;
+        currentStreak++;
+        if (currentStreak > maxStreak) {
+            maxStreak = currentStreak;
         }
-    } else {
-        const isFlagged = flaggedCombinations.some(
-            (flagged) => flagged.a === currentQuestion.a && flagged.b === currentQuestion.b
-        );
-        console.log(`Question flagged: ${isFlagged}`);
 
-        if (userAnswer === correctAnswer) {
-            if (isFlagged) {
-                updateFlaggedCombination(currentQuestion, 'correct');
-                console.log(`Correct answer for flagged combination ${currentQuestion.a} × ${currentQuestion.b}`);
-            } else {
-                currentQuestion.troubleRight++;
-                correctAnswers++;
-                currentStreak++;
-                if (currentStreak > maxStreak) {
-                    maxStreak = currentStreak;
-                }
-                console.log(`Correct answer for ${currentQuestion.a} × ${currentQuestion.b}. troubleRight: ${currentQuestion.troubleRight}`);
-            }
-            isCorrect = true;
-            clearFeedback();
-            randomQuestionsPool.splice(randomQuestionsPool.indexOf(currentQuestion), 1);
-            console.log('Removed question from random pool.');
-            saveProgress();
-            updateFlaggedProgressDisplay();
-            updateSessionProgressDisplay();
-            displayQuestion();
-        } else {
-            if (isFlagged) {
-                currentQuestion.troubleWrong++;
-                currentQuestion.lastWrongAnswer = userAnswer; // Store last wrong answer
-                currentStreak = 0; // Reset streak on wrong answer
-                console.log(`Wrong answer for flagged combination ${currentQuestion.a} × ${currentQuestion.b}. troubleWrong: ${currentQuestion.troubleWrong}, lastWrongAnswer: ${currentQuestion.lastWrongAnswer}`);
-                if (currentQuestion.troubleWrong >= 3) {
-                    showHint(currentQuestion.lastWrongAnswer);
-                    currentQuestion.troubleWrong = 0; // Reset after showing hint
-                } else {
-                    showWrongFeedback(correctAnswer);
-                }
-                updateFlaggedCombination(currentQuestion, 'wrong');
-            } else {
-                currentQuestion.troubleWrong++;
-                currentQuestion.lastWrongAnswer = userAnswer; // Store last wrong answer
-                currentStreak = 0; // Reset streak on wrong answer
-                console.log(`Wrong answer for ${currentQuestion.a} × ${currentQuestion.b}. troubleWrong: ${currentQuestion.troubleWrong}, lastWrongAnswer: ${currentQuestion.lastWrongAnswer}`);
-                if (currentQuestion.troubleWrong >= 3) {
-                    showHint(currentQuestion.lastWrongAnswer);
-                    currentQuestion.troubleWrong = 0; // Reset after showing hint
-                } else {
-                    showWrongFeedback(correctAnswer);
-                }
-                updateFlaggedCombination(currentQuestion, 'wrong');
-            }
-            isReinforcementMode = true;
+        if (questionType === 'perfectSquare') {
+            squareRootsLearned++;
         }
+
+        showCorrectFeedback();
+        moveToNextQuestion();
+    } else {
+        isCorrect = false;
+        currentStreak = 0;
+        handleWrongAnswer(userAnswer);
     }
 
+    totalQuestions++;
     const answerEndTime = Date.now(); // End time for response
     const responseTime = (answerEndTime - answerStartTime) / 1000; // in seconds
     totalResponseTime += responseTime;
     averageResponseTime = (totalResponseTime / totalQuestions).toFixed(2);
 
-    totalQuestions++;
-    correctAnswers += isCorrect ? 1 : 0; // Already incremented above if correct
-    updateSessionStats(isCorrect, responseTime);
-    updateSessionProgressDisplay(); // Update session stats in progress box
+    updateSessionProgressDisplay();
+    saveProgress();
 
     answerInput.value = '';
-    updateFlaggedProgressDisplay();
-    saveProgress();
 }
 
+// Handle wrong answers with feedback
+function handleWrongAnswer(userAnswer) {
+    feedbackDiv.innerHTML = `❌ No, it's not ${userAnswer}.`;
+    console.log(`Displayed wrong feedback: It's not ${userAnswer}.`);
+
+    setTimeout(() => {
+        feedbackDiv.innerHTML = '';
+        if (currentQuestion.type === 'perfectSquare') {
+            // After three wrong attempts, give a nudge
+            perfectSquareRoots[currentTableIndex].troubleWrong++;
+            if (perfectSquareRoots[currentTableIndex].troubleWrong >= 3) {
+                feedbackDiv.innerHTML = `❌ Not ${userAnswer}. Try again!`;
+                console.log(`Displayed nudge: Not ${userAnswer}.`);
+                perfectSquareRoots[currentTableIndex].troubleWrong = 0; // Reset after nudge
+            }
+        } else {
+            // For multiplication questions
+            const multQuestion = multiplicationTables[currentTableIndex].questions[currentQuestionIndex];
+            multQuestion.troubleWrong++;
+            if (multQuestion.troubleWrong >= 3) {
+                feedbackDiv.innerHTML = `❌ Not ${userAnswer}. It's ${currentQuestion.a} × ${currentQuestion.b} = ${correctAnswer}`;
+                console.log(`Displayed correct answer after 3 wrong attempts.`);
+                multQuestion.troubleWrong = 0; // Reset after showing correct answer
+            }
+        }
+    }, 2000);
+}
+
+// Show correct answer feedback
+function showCorrectFeedback() {
+    feedbackDiv.innerHTML = '✅ Correct!';
+    console.log('Displayed correct feedback.');
+
+    setTimeout(() => {
+        feedbackDiv.innerHTML = '';
+    }, 1000);
+}
+
+// Move to the next question based on phase
+function moveToNextQuestion() {
+    if (isRandomPhase) {
+        // Remove the question from the pool
+        const index = randomQuestionsPool.indexOf(currentQuestion);
+        if (index > -1) {
+            randomQuestionsPool.splice(index, 1);
+        }
+
+        if (randomQuestionsPool.length === 0) {
+            isRandomPhase = false;
+            currentTableIndex++;
+        }
+    } else {
+        if (currentPhase === 'perfectSquare') {
+            currentPhase = 'multiplication';
+        } else {
+            currentQuestionIndex++;
+            if (currentQuestionIndex >= 2) {
+                // All two multiplication questions done, move to perfect square
+                currentPhase = 'perfectSquare';
+            }
+        }
+    }
+
+    // Check if all perfect squares are learned
+    if (squareRootsLearned >= perfectSquareRoots.length) {
+        questionElement.textContent = '🎉 You have mastered all perfect square roots!';
+        answerInput.style.display = 'none';
+        submitButton.style.display = 'none';
+        resetButton.style.display = 'inline-block';
+        return;
+    }
+
+    // Move to Random Phase after sequential completion
+    if (!isRandomPhase && currentPhase === 'multiplication' && currentQuestionIndex >= 2) {
+        initiateRandomPhase();
+    } else {
+        displayQuestion();
+    }
+}
+
+// Calculate troublesome index
 function getTroublesomeIndex(question) {
     const totalAttempts = question.troubleRight + question.troubleWrong;
     const index = totalAttempts > 0 ? question.troubleWrong / totalAttempts : 0;
     return index;
 }
 
-function showWrongFeedback(correctAnswer) {
-    feedbackDiv.innerHTML = '❌';
-    setTimeout(() => {
-        feedbackDiv.innerHTML = `❌ ${currentQuestion.a} × ${currentQuestion.b} = ${correctAnswer}`;
-        console.log(`Displayed wrong feedback for ${currentQuestion.a} × ${currentQuestion.b}`);
-    }, 0);
-
-    setTimeout(() => {
-        feedbackDiv.innerHTML = '';
-        isReinforcementMode = true;
-        answerInput.focus();
-        if (diagnosticsMode) {
-            autoSubmitCorrectAnswer(currentQuestion);
-        }
-    }, 2000);
-}
-
-function showHint(lastWrongAnswer) {
-    feedbackDiv.innerHTML = `❌ Not ${lastWrongAnswer}`;
-    console.log(`Displayed hint: Not ${lastWrongAnswer}`);
-
-    setTimeout(() => {
-        feedbackDiv.innerHTML = '';
-        isReinforcementMode = true;
-        answerInput.focus();
-    }, 2000);
-}
-
+// Update flagged combinations based on outcomes
 function updateFlaggedCombination(question, outcome) {
     console.log(`Updating flagged combination for ${question.a} × ${question.b} with outcome: ${outcome}`);
     let flagged = flaggedCombinations.find(
@@ -419,29 +464,42 @@ function updateFlaggedCombination(question, outcome) {
     updateFlaggedProgressDisplay();
 }
 
+// Shuffle an array (Fisher-Yates Shuffle)
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+// Clear feedback
 function clearFeedback() {
     feedbackDiv.innerHTML = '';
     console.log('Cleared feedback.');
 }
 
+// Handle reset button
 function handleReset() {
     if (confirm('Are you sure you want to reset your progress?')) {
         console.log('Resetting progress.');
-        localStorage.removeItem('multiplicationProgress');
+        localStorage.removeItem('perfectSquareRootsProgress');
         window.location.reload();
     }
 }
 
+// Auto-submit correct answer for diagnostics mode
 function autoSubmitCorrectAnswer(question) {
     if (!diagnosticsMode) return;
     if (!question) return;
 
-    const correctAnswer = question.a * question.b;
+    const correctAnswer = question.type === 'perfectSquare' ? question.squareRoot : question.a * question.b;
     answerInput.value = correctAnswer;
-    console.log(`Auto-submitting correct answer for ${question.a} × ${question.b}: ${correctAnswer}`);
+    console.log(`Auto-submitting correct answer for ${question.type === 'perfectSquare' ? `square root of ${question.number}` : `${question.a} × ${question.b}`}: ${correctAnswer}`);
     handleSubmit();
 }
 
+// Event Listeners
 submitButton.addEventListener('click', handleSubmit);
 answerInput.addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
@@ -482,45 +540,7 @@ function resetSleepTimer() {
     sleepTimer = setTimeout(showSleepIndicator, sleepTimeout);
 }
 
-// Session Stats Functions
-function updateSessionStats(isCorrect, responseTime) {
-    if (isCorrect) {
-        correctAnswers++;
-        currentStreak++;
-        if (currentStreak > maxStreak) {
-            maxStreak = currentStreak;
-        }
-    } else {
-        currentStreak = 0;
-    }
-    totalResponseTime += responseTime;
-    averageResponseTime = (totalResponseTime / totalQuestions).toFixed(2);
-}
-
-function displaySessionStats() {
-    const masteryRate = ((correctAnswers / totalQuestions) * 100).toFixed(1) || 0;
-    const masteryText = `Mastery: ${masteryRate}% 🏅`;
-
-    const questionsAnsweredText = `Questions Answered: ${totalQuestions} | Correct: ${correctAnswers}`;
-
-    const currentPhase = currentTableIndex < multiplicationTables.length ? `Phase: ${multiplicationTables[currentTableIndex].table} Times` : `Phase: Completed`;
-
-    const streakText = `Streak: ${currentStreak} 🔥`;
-
-    const avgResponseTimeText = `Avg Response Time: ${averageResponseTime}s ⏱️`;
-
-    // Clear previous stats
-    sessionProgressElement.innerHTML = '';
-
-    // Append new stats
-    sessionProgressElement.innerHTML += `${masteryText}<br>`;
-    sessionProgressElement.innerHTML += `${questionsAnsweredText}<br>`;
-    sessionProgressElement.innerHTML += `${currentPhase}<br>`;
-    sessionProgressElement.innerHTML += `${streakText}<br>`;
-    sessionProgressElement.innerHTML += `${avgResponseTimeText}`;
-    console.log('Updated session progress display:', sessionProgressElement.innerHTML);
-}
-
+// Initialize on DOM Content Loaded
 document.addEventListener('DOMContentLoaded', () => {
     loadProgress();
     displayQuestion();

@@ -1,4 +1,6 @@
-<!-- file: substraction.html -->
+<!-- file: division-short.html -->
+<!-- I love chocolate -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,9 +18,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Learn subtraction with an interactive and emoji-based platform using advanced learning techniques.">
-    <meta name="keywords" content="math, subtraction, interactive learning, spaced repetition">
-    <title>Subtraction Practice</title>
+        content="Learn multiplication, division, square roots, and algebraic equations with an interactive and emoji-based platform.">
+    <meta name="keywords" content="math, multiplication, division, square roots, algebra, interactive learning">
+    <title>2x2</title>
     <link rel="stylesheet" href="css/styles.css">
     <!-- Include Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,11 +32,11 @@
         <nav class="nav-bar" role="navigation" aria-label="Main navigation">
             <ul>
                 <li><a href="index.html" aria-label="Home">✖️</a></li>
-                <li><a href="division-short.html" aria-label="Division Section">➗🗂️</a></li>
-                <li><a href="division-long.html" aria-label="Division Section">➗✎</a></li>
-                <li><a href="square-root01.html" aria-label="Square Roots Section">√</a></li>
-                <li><a href="algebraic-equation01.html" aria-label="Algebraic Equations Section">2X = 3x9</a></li>
-                <li><a href="substraction.html" aria-label="Subtraction Section">➖</a></li>
+                <li><a href="short-division.html" aria-label="Division Section">➗🗂️</a></li>
+                <li><a href="long-division.html" aria-label="Division Section">➗✎</a></li>
+                <li><a href="square-roots-practice.html" aria-label="Square Roots Section">√</a></li>
+                <li><a href="algebraic-equations.html" aria-label="Algebraic Equations Section">2X = 3x9</a></li>
+                <li><a href="subtraction-practice.html" aria-label="Subtraction Section">➖</a></li>
             </ul>
             <button id="theme-toggle-button" class="theme-toggle" aria-label="Toggle light and dark mode">|☯️|</button>
         </nav>
@@ -44,7 +46,7 @@
         <section class="question-section">
             <div id="feedback" class="feedback" aria-live="polite"></div>
             <div id="question-container">
-                <p id="question" class="question-text" aria-live="polite">12 - 5</p>
+                <p id="question" class="question-text" aria-live="polite">12 × 2</p>
                 <label for="answer-input"></label>
                 <input type="number" id="answer-input" maxlength="4" aria-label="Answer input" autofocus=""> <br>
                 <button id="submit-button" class="submit-btn" aria-label="Submit your answer">📤</button>
@@ -56,29 +58,29 @@
     <footer class="footer" role="contentinfo">
         <p>📋🌐 International Learning with Emojis and Spaced Repetition</p>
         <div class="description-box">
-            <p>🇬🇧 English: Practice subtraction and learn independently using advanced learning techniques. These
-                techniques include a sequential and random learning algorithm, a repetition-based approach with
-                corrections, spaced repetition that focuses on errors, revisit probability, an error-weighted algorithm,
-                and a sequential reset after multiple errors.</p>
+            <p>🇬🇧 English: Practice the multiplication tables and learn independently using advanced learning
+                techniques. These techniques include a sequential and random learning algorithm, a repetition-based
+                approach with corrections, spaced repetition that focuses on errors, revisit probability, an
+                error-weighted algorithm, and a sequential reset after multiple errors.</p>
 
-            <p>🇪🇸 Español: Practica la resta y aprende de manera independiente utilizando técnicas avanzadas de
-                aprendizaje. Estas técnicas incluyen un algoritmo de aprendizaje secuencial y aleatorio, un enfoque
-                basado en la repetición con corrección, repetición espaciada centrada en errores, probabilidad de
-                revisión, un algoritmo de ponderación basado en errores, y reinicio secuencial tras múltiples errores.
-            </p>
+            <p>🇪🇸 Español: Practica las tablas de multiplicar y aprende de manera independiente utilizando técnicas
+                avanzadas de aprendizaje. Estas técnicas incluyen un algoritmo de aprendizaje secuencial y aleatorio, un
+                enfoque basado en la repetición con corrección, repetición espaciada centrada en errores, probabilidad
+                de revisión, un algoritmo de ponderación basado en errores, y reinicio secuencial tras múltiples
+                errores.</p>
 
-            <p>🇵🇹 Português: Pratique subtração e aprenda de forma independente utilizando técnicas avançadas de
+            <p>🇵🇹 Português: Pratique as tabuadas e aprenda de forma independente utilizando técnicas avançadas de
                 aprendizagem. Essas técnicas incluem um algoritmo de aprendizado sequencial e aleatório, uma abordagem
                 baseada na repetição com correções, repetição espaçada com foco nos erros, probabilidade de revisão, um
                 algoritmo ponderado por erros e reinicialização sequencial após múltiplos erros.</p>
 
-            <p>🇫🇷 Français: Pratiquez la soustraction et apprenez de manière autonome en utilisant des techniques
-                avancées d'apprentissage. Ces techniques comprennent un algorithme d'apprentissage séquentiel et
-                aléatoire, une approche basée sur la répétition avec corrections, la répétition espacée avec un accent
-                sur les erreurs, la probabilité de révision, un algorithme pondéré par erreurs et une réinitialisation
-                séquentielle après plusieurs erreurs.</p>
+            <p>🇫🇷 Français: Pratiquez les tables de multiplication et apprenez de manière autonome en utilisant des
+                techniques avancées d'apprentissage. Ces techniques comprennent un algorithme d'apprentissage séquentiel
+                et aléatoire, une approche basée sur la répétition avec corrections, la répétition espacée avec un
+                accent sur les erreurs, la probabilité de révision, un algorithme pondéré par erreurs et une
+                réinitialisation séquentielle après plusieurs erreurs.</p>
 
-            <p>🇮🇹 Italiano: Pratica la sottrazione e impara in modo indipendente utilizzando tecniche avanzate di
+            <p>🇮🇹 Italiano: Pratica le tabelline e impara in modo indipendente utilizzando tecniche avanzate di
                 apprendimento. Queste tecniche includono un algoritmo di apprendimento sequenziale e casuale, un
                 approccio basato sulla ripetizione con correzioni, la ripetizione distanziata con un focus sugli errori,
                 la probabilità di revisione, un algoritmo ponderato sugli errori e un ripristino sequenziale dopo più
@@ -115,8 +117,8 @@
         </div>
     </footer>
 
-    <script defer src="js/main.js"></script>
-    <script defer src="js/subs01.js"></script>
+    <script defer src="scripts/main.js"></script>
+    <script defer src="scripts/short-division.js"></script>
 </body>
 
 </html>

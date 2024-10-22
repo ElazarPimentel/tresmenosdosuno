@@ -9,8 +9,9 @@
   - Division
   - Exponents (powers)
   - Square roots
+  - Subtraction (newly added)
 - Emoji-based, minimalist interface for intuitive use across languages
-- ChatGPT was kind enought to provide translations for some languages (English, Spanish, Portuguese, French, Italian)
+- ChatGPT was kind enough to provide translations for some languages (English, Spanish, Portuguese, French, Italian)
 - Learning algorithms:
   - Spaced repetition 
   - Error-weighted question selection
@@ -72,20 +73,20 @@ The author, under the names Alessio Aguirre Pimentel and Elazar Pimentel, reserv
 - Implemented multi-language support (EN, ES, PT, FR, IT)
 - Developed spaced repetition algorithm
 - Implemented error-weighted question selection
+- Implemented subtraction practice
 
 ### Doing
-- Implemented subtraction practice
 - Optimizing mobile responsiveness
 - Enhancing accessibility features
 - Improving error correction feedback
 
 ### Pending
-- In multiplication tables, randomly ask again questions that were answered incorrectly.
-- Finish long division.
-- Show perfect squares in multiplication tables. (We should all have been taught that in school, right?. Like you know the square root of 49 but if I ask you you would say you don't. Had you been told when you were learning 7x7=49 that the square root of 49 is 7 you would now it now just like you know your multiplication tables.)
-- Start 2x=3x9, simple equations.
-- Add "Download your work" and "Upload your work" features. No login, sorry, too much work.
-- Add a download as PDF "practice sheet" feature. Suggested by Cursor IDE (The best IDE in the galaxy and beyond)
+- In multiplication tables, randomly ask again questions that were answered incorrectly
+- Finish long division
+- Show perfect squares in multiplication tables (e.g., highlighting that 7x7=49 means the square root of 49 is 7)
+- Start simple equations (e.g., 2x=3x9)
+- Add "Download your work" and "Upload your work" features (without login)
+- Add a "Download as PDF practice sheet" feature (suggested by Cursor IDE)
 
 ### Known Bugs
-- Multipli
+- Multiplication issue (details to be added)
