@@ -1,3 +1,4 @@
+/* file name: styles.scss */
 @import url("https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&display=swap");
 *, *::before, *::after {
   box-sizing: border-box; }
@@ -33,6 +34,9 @@ h1 {
   flex-direction: column;
   align-items: center;
   position: relative; }
+
+.table-selection {
+  margin-bottom: 2rem; }
 
 .question-section {
   display: flex;

@@ -51,6 +51,7 @@ const flaggedProgressElement = document.getElementById('flagged-progress');
 const sessionProgressElement = document.getElementById('session-progress');
 const sleepIndicator = document.getElementById('sleep-indicator');
 const toggleButtons = document.querySelectorAll('.toggle-button');
+const tableSelect = document.getElementById('table-select'); // Added for table selection
 
 function loadProgress() {
     console.log('Loading progress from localStorage');
@@ -446,6 +447,20 @@ function updateSessionStats(isCorrect, responseTime) {
     totalResponseTime += responseTime;
     averageResponseTime = (totalResponseTime / totalQuestions).toFixed(2);
 }
+
+// Event listener for table selection dropdown
+tableSelect.addEventListener('change', function () {
+    const selectedTable = parseInt(this.value, 10);
+    console.log(`User selected table: ${selectedTable}×`);
+    currentTableIndex = selectedTable - 2; // Assuming tables start at 2×
+    currentQuestionIndex = 0;
+    isRandomPhase = false;
+    randomQuestionsPool = [];
+    currentQuestion = null;
+    updateFlaggedProgressDisplay();
+    updateSessionProgressDisplay();
+    displayQuestion();
+});
 
 submitButton.addEventListener('click', handleSubmit);
 answerInput.addEventListener('keypress', function (e) {

@@ -1,5 +1,4 @@
 <!-- file name: index.html -->
- 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -97,6 +96,24 @@
         <!-- Added main H1 title for SEO and structure -->
         <h1 id="main-title">Learn or remember your multiplication tables!</h1>
 
+        <!-- Dropdown for selecting multiplication table -->
+        <section class="table-selection mt-4">
+            <label for="table-select">Select Multiplication Table:</label>
+            <select id="table-select" class="form-control w-25 mx-auto" aria-label="Select multiplication table">
+                <option value="2">2×</option>
+                <option value="3">3×</option>
+                <option value="4">4×</option>
+                <option value="5">5×</option>
+                <option value="6">6×</option>
+                <option value="7">7×</option>
+                <option value="8">8×</option>
+                <option value="9">9×</option>
+                <option value="10">10×</option>
+                <option value="11">11×</option>
+                <option value="12">12×</option>
+            </select>
+        </section>
+
         <section class="question-section">
             <div id="feedback" class="feedback" aria-live="polite"></div>
             <div id="question-container">
@@ -163,7 +180,6 @@
 
             <p>🇮🇹 Italiano: Pratica le tabelline e impara in modo indipendente utilizzando tecniche avanzate di
                 apprendimento. Queste tecniche includono un algoritmo di apprendimento sequenziale e casuale, un
-
 
                 approccio basato sulla ripetizione con correzioni, la ripetizione distanziata con un focus sugli errori,
                 la probabilità di revisione, un algoritmo ponderato sugli errori e un ripristino sequenziale dopo più
