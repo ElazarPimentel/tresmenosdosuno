@@ -1,6 +1,35 @@
-@import "utils/variables";
+// file name: styles.scss
 
-// Import Bootstrap SCSS if you're customizing Bootstrap variables
+@import url('https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&display=swap');
+
+// Dark Theme Variables
+$color-background: #121212;
+$color-text: #FFFFFF;
+$color-link: gray;
+$color-header-bg: #747070;
+$color-footer-bg: #333;
+$color-button: #888484;
+$color-reset-button: #1E90FF;
+
+// Light Theme Variables
+$color-light-background: #f0f0f0;
+$color-light-text: #000000;
+$color-light-link: #007BFF;
+$color-light-header-bg: #fff;
+$color-light-footer-bg: #ddd;
+$color-light-button: #007BFF;
+$color-light-reset-button: #FF5733;
+
+$font-family: 'Arial', sans-serif;
+$font-family-exo: 'Exo', sans-serif;
+
+$screen-small: 480px;
+$screen-tablet: 768px;
+$screen-desktop: 992px;
+$screen-wide: 1200px;
+$screen-extra-wide: 1440px;
+
+// Import Bootstrap SCSS if needed
 // Otherwise, ensure Bootstrap CSS is included via CDN as in index.html
 
 *, *::before, *::after {
