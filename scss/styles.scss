@@ -170,10 +170,8 @@ h1 {
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: darken($color-reset-button, 10%);
-    }
+    align-self: flex-start; // Aligns to the left in a flex container
+    margin-left: 0; // Ensures it's aligned to the left
   }
 
   .progress-containers {

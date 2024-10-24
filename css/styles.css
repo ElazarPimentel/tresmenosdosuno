@@ -104,9 +104,9 @@ h1 {
     font-size: 1.2rem;
     color: white;
     cursor: pointer;
-    transition: background-color 0.3s ease; }
-    .question-section .reset-button:hover {
-      background-color: #0077ea; }
+    transition: background-color 0.3s ease;
+    align-self: flex-start;
+    margin-left: 0; }
   .question-section .progress-containers {
     display: flex;
     flex-direction: row;
@@ -219,4 +219,18 @@ copyright {
     color: #000000;
     border-color: #007BFF; }
 
+.float-left-custom {
+    float: left;
+}
+
 /*# sourceMappingURL=styles.css.map */
+
+.btn-delete-localstore {
+    position: fixed; /* Fixes the button's position relative to the viewport */
+    bottom: 10px; /* Adjusts the distance from the bottom */
+    left: 10px; /* Adjusts the distance from the left */
+    margin: 0; /* Reset margin */
+    padding: 0; /* Reset padding */
+    display: block; /* Ensure it's a block element */
+    /* Add any additional styling you need */
+}
