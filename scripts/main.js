@@ -1,3 +1,5 @@
+// file name: scripts/main.js
+
 document.addEventListener('DOMContentLoaded', function () {
     const localStorageKey = 'userTheme';
     const themeToggleButton = document.getElementById('theme-toggle-button');
