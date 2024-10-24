@@ -35,6 +35,15 @@
     <!-- Canonical Tag to Prevent Duplicate Content -->
     <link rel="canonical" href="https://www.tresmenosdos.uno/index.html">
 
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GtvRYV/5DgP12dRqkX6HAwx6VgE2PbKozkae3c1N0eZ4IbtDgEJKk1GpkxTkzKR/"
+      crossorigin="anonymous"
+    >
+    
+    <!-- Your Custom CSS -->
     <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap" rel="stylesheet">
@@ -57,21 +66,39 @@
 
 <body class="container-main" aria-labelledby="main-title">
     <header>
-        <nav class="nav-bar" role="navigation" aria-label="Main navigation">
-            <!-- Burger Menu Button -->
-            <button class="burger" aria-label="Toggle navigation menu">
-                ☰
-            </button>
-
-            <ul>
-                <li><a href="index.html" aria-label="Home">✖️</a></li>
-                <li><a href="short-division.html" aria-label="Division Section">➗🗂️</a></li>
-                <li><a href="long-division.html" aria-label="Division Section">➗✎</a></li>
-                <li><a href="perfect-square-roots-practice.html" aria-label="Perfect Square Roots Section">√</a></li>
-                <li><a href="algebraic-equations.html" aria-label="Algebraic Equations Section">2X = 3x9</a></li>
-                <li><a href="subtraction-practice.html" aria-label="Subtraction Section">➖</a></li>
-            </ul>
-            <button id="theme-toggle-button" class="theme-toggle" aria-label="Toggle light and dark mode">|☯️|</button>
+        <!-- Bootstrap Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary" aria-label="Main navigation">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html" aria-label="Home">
+                    ✖️ Learn Math
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="short-division.html" aria-label="Division Section">➗🗂️ Short Division</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="long-division.html" aria-label="Division Section">➗✎ Long Division</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="perfect-square-roots-practice.html" aria-label="Perfect Square Roots Section">√ Perfect Squares</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="algebraic-equations.html" aria-label="Algebraic Equations Section">2X = 3x9 Algebra</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="subtraction-practice.html" aria-label="Subtraction Section">➖ Subtraction</a>
+                        </li>
+                        <li class="nav-item">
+                            <button id="theme-toggle-button" class="btn btn-secondary ms-3" aria-label="Toggle light and dark mode">|☯️|</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </nav>
     </header>
 
@@ -180,7 +207,14 @@
         </div>
     </footer>
 
-    <!-- Swap the order: load mult01.js before main.js -->
+    <!-- Bootstrap JS Bundle (includes Popper) -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+OOuQvHfGgiIY5VOGo3K3St9g9UX+"
+      crossorigin="anonymous"
+    ></script>
+    
+    <!-- Your Custom JS -->
     <script defer src="scripts/multiplication-practice.js"></script>
     <script defer src="scripts/main.js"></script>
 </body>

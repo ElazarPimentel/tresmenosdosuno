@@ -1,8 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap");
-*,
-*::before,
-*::after {
+*, *::before, *::after {
   box-sizing: border-box; }
 
 body {
@@ -178,75 +175,7 @@ h1 {
     animation: blink 1s infinite; }
 
 /* Navigation Bar Styles */
-.nav-bar {
-  background-color: #747070;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-  border-radius: 15px;
-  overflow: hidden;
-  /* Burger Menu Button Styles */ }
-  .nav-bar ul {
-    display: flex;
-    list-style-type: none;
-    margin: 0;
-    padding: 0; }
-    .nav-bar ul li {
-      margin-right: 1rem; }
-      .nav-bar ul li a {
-        display: inline-block;
-        padding: 0.5rem 1rem;
-        background-color: #888484;
-        color: #333;
-        text-decoration: none;
-        border-radius: 8px;
-        transition: background-color 0.3s ease;
-        font-weight: 800; }
-        .nav-bar ul li a:hover, .nav-bar ul li a:focus {
-          background-color: #6e6b6b; }
-  .nav-bar .theme-toggle {
-    background: none;
-    border: none;
-    font-size: 1.8rem;
-    cursor: pointer;
-    color: gray;
-    transition: color 0.3s ease; }
-    .nav-bar .theme-toggle:hover {
-      color: #b3b3b3; }
-  .nav-bar .burger {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 2rem;
-    cursor: pointer;
-    color: gray;
-    transition: color 0.3s ease; }
-    .nav-bar .burger:hover, .nav-bar .burger:focus {
-      color: #b3b3b3; }
-    @media (max-width: 768px) {
-      .nav-bar .burger {
-        display: block; } }
-  @media (max-width: 768px) {
-    .nav-bar {
-      /* Optional: Adjust the positioning of the theme toggle on mobile */ }
-      .nav-bar ul {
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: #747070;
-        height: 0;
-        overflow: hidden;
-        transition: height 0.5s ease;
-        z-index: 10; }
-      .nav-bar ul.active {
-        height: auto; }
-      .nav-bar .theme-toggle {
-        margin-top: 1rem; } }
-
+/* Removed custom navbar styles as Bootstrap handles it */
 .footer {
   margin-top: 20rem;
   padding: 1rem;
@@ -268,22 +197,7 @@ h1 {
     color: #000000; }
 
 @media (max-width: 768px) {
-  .nav-bar ul {
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background-color: #747070;
-    height: 0;
-    overflow: hidden;
-    transition: height 0.5s ease; }
-
-  .nav-bar ul.active {
-    height: auto; }
-
-  .burger {
-    display: block; } }
+  /* Removed custom responsive navbar styles as Bootstrap handles it */ }
 .division-table input {
   text-align: center;
   width: 3ch; }

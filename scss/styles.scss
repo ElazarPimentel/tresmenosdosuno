@@ -1,11 +1,9 @@
 @import "utils/variables";
 
-// Import the 'Rubik' font for the navigation bar
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap');
+// Import Bootstrap SCSS if you're customizing Bootstrap variables
+// Otherwise, ensure Bootstrap CSS is included via CDN as in index.html
 
-*,
-*::before,
-*::after {
+*, *::before, *::after {
   box-sizing: border-box;
 }
 
@@ -258,100 +256,7 @@ h1 {
 }
 
 /* Navigation Bar Styles */
-.nav-bar {
-  background-color: $color-header-bg;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-  border-radius: 15px; // Rounded corners
-  overflow: hidden; // Ensures content doesn't spill out of rounded corners
-
-  ul {
-    display: flex;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-
-    li {
-      margin-right: 1rem;
-
-      a {
-        display: inline-block;
-        padding: 0.5rem 1rem;
-        background-color: $color-button; // Use your button color variable
-        color: $color-footer-bg; // Use your text color variable
-        text-decoration: none;
-        border-radius: 8px; // Rounded corners for each item
-        transition: background-color 0.3s ease;
-        font-weight: 800;
-
-        &:hover,
-        &:focus {
-          background-color: darken($color-button, 10%);
-        }
-      }
-    }
-  }
-
-  .theme-toggle {
-    background: none;
-    border: none;
-    font-size: 1.8rem;
-    cursor: pointer;
-    color: $color-link;
-    transition: color 0.3s ease;
-
-    &:hover {
-      color: lighten($color-link, 20%);
-    }
-  }
-
-  /* Burger Menu Button Styles */
-  .burger {
-    display: none; // Hidden by default (visible on mobile via media query)
-    background: none;
-    border: none;
-    font-size: 2rem;
-    cursor: pointer;
-    color: $color-link;
-    transition: color 0.3s ease;
-
-    &:hover,
-    &:focus {
-      color: lighten($color-link, 20%);
-    }
-
-    @media (max-width: $screen-tablet) {
-      display: block; // Show on small screens
-    }
-  }
-
-  @media (max-width: $screen-tablet) {
-    ul {
-      flex-direction: column;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 100%;
-      background-color: $color-header-bg;
-      height: 0;
-      overflow: hidden;
-      transition: height 0.5s ease;
-      z-index: 10; // Ensure the menu appears above other content
-    }
-
-    ul.active {
-      height: auto; // Automatically adjust height based on content
-    }
-
-    /* Optional: Adjust the positioning of the theme toggle on mobile */
-    .theme-toggle {
-      margin-top: 1rem;
-    }
-  }
-}
+/* Removed custom navbar styles as Bootstrap handles it */
 
 .footer {
   margin-top: 20rem;
@@ -380,25 +285,7 @@ h1 {
 }
 
 @media (max-width: $screen-tablet) {
-  .nav-bar ul {
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background-color: $color-header-bg;
-    height: 0;
-    overflow: hidden;
-    transition: height 0.5s ease;
-  }
-
-  .nav-bar ul.active {
-    height: auto; // Adjusted to auto for dynamic height
-  }
-
-  .burger {
-    display: block;
-  }
+  /* Removed custom responsive navbar styles as Bootstrap handles it */
 }
 
 .division-table {
