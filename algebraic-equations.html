@@ -1,42 +1,75 @@
-<!-- file: algebraic-equation01.html -->
-<!-- I love chocolate -->
+<!-- file: algebraic-equations.html -->
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-H9849DFX8T"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-H9849DFX8T');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H9849DFX8T"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-H9849DFX8T');
+    </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Learn how to solve algebraic equations with interactive examples and advanced learning techniques.">
     <meta name="keywords" content="math, algebra, equations, algebraic equations, interactive learning">
-    <title>Algebraic Equations - Math Learning Platform</title>
+    <meta name="author" content="Alessio Aguirre Pimentel">
+    
+    <!-- Open Graph Meta Tags for Social Media -->
+    <meta property="og:title" content="Algebraic Equations - Math Learning Platform">
+    <meta property="og:description" content="Practice solving algebraic equations through interactive tools and spaced repetition.">
+    <meta property="og:url" content="https://www.tresmenosdos.uno/algebraic-equation01.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://www.tresmenosdos.uno/images/og-image-algebra.jpg">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Algebraic Equations - Math Learning Platform">
+    <meta name="twitter:description" content="Master algebraic equations with interactive learning techniques and spaced repetition.">
+    <meta name="twitter:image" content="https://www.tresmenosdos.uno/images/twitter-card-algebra.jpg">
+
+    <!-- Canonical Tag to Prevent Duplicate Content -->
+    <link rel="canonical" href="https://www.tresmenosdos.uno/algebraic-equation01.html">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body class="container-main" aria-labelledby="algebra-title">
     <header>
-        <nav class="nav-bar" role="navigation" aria-label="Main navigation">
-            <ul>
-                <li><a href="index.html" aria-label="Home">✖️</a></li>
-                <li><a href="short-division.html" aria-label="Division Section">➗🗂️</a></li>
-                <li><a href="long-division.html" aria-label="Division Section">➗✎</a></li>
-                <li><a href="perfect-square-roots-practice.html" aria-label="Perfect Square Roots Section">√</a></li>
-                <li><a href="algebraic-equations.html" aria-label="Algebraic Equations Section">2X = 3x9</a></li>
-                <li><a href="subtraction-practice.html" aria-label="Subtraction Section">➖</a></li>
-            </ul>
-            <button id="theme-toggle-button" class="theme-toggle" aria-label="Toggle light and dark mode">|☯️|</button>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="index.html">✖️</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="short-division.html" aria-label="Division Section">➗🗂️</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="long-division.html" aria-label="Division Section">➗✎</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="perfect-square-roots-practice.html" aria-label="Perfect Square Roots Section">√</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="algebraic-equations.html" aria-label="Algebraic Equations Section">2X = 3x9</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="subtraction-practice.html" aria-label="Subtraction Section">➖</a>
+                    </li>
+                </ul>
+                <button id="theme-toggle-button" class="btn btn-outline-secondary ml-auto" aria-label="Toggle light and dark mode">|☯️|</button>
+            </div>
         </nav>
     </header>
-
 
     <main class="content" role="main">
         <section class="question-section">
@@ -45,9 +78,9 @@
                 <p id="question" class="question-text" aria-live="polite"></p>
                 <label for="answer-input"></label>
                 <input type="number" id="answer-input" maxlength="4" aria-label="Answer input" autofocus /> <br>
-                <button id="submit-button" class="submit-btn" aria-label="Submit your answer">Submit</button>
+                <button id="submit-button" class="btn btn-primary" aria-label="Submit your answer">Submit</button>
             </div>
-            <button id="reset-button" class="reset-button" aria-label="Reset your progress">🔄 Reset Progress</button>
+            <button id="reset-button" class="btn btn-danger" aria-label="Reset your progress">🔄 Reset Progress</button>
         </section>
     </main>
 
@@ -65,6 +98,11 @@
             <p>🇮🇹 Italiano: Pratica la risoluzione delle equazioni algebriche e impara in modo indipendente utilizzando tecniche avanzate di apprendimento. Queste tecniche includono un algoritmo di apprendimento sequenziale e casuale, un approccio basato sulla ripetizione con correzioni, la ripetizione distanziata con un focus sugli errori, la probabilità di revisione, un algoritmo ponderato sugli errori e un ripristino sequenziale dopo più errori.</p>
         </div>
     </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script defer src="scripts/main.js"></script>
     <script defer src="scripts/algebraic-equations.js"></script>

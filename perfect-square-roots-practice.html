@@ -1,4 +1,5 @@
 <!-- file: perfect-square-roots-practice.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,13 +18,11 @@
     <meta name="description"
         content="Discover that you already know perfect square roots through an interactive, fun, emoji-based learning tool.">
     <meta name="author" content="Alessio Aguirre Pimentel">
-
-    <title>Interactive Learning: Perfect Square Roots Practice</title>
-
+    
     <!-- Open Graph Meta Tags for Social Media -->
     <meta property="og:title" content="Interactive Learning: Perfect Square Roots Practice">
     <meta property="og:description" content="Realize that you already know perfect square roots through spaced repetition and engaging feedback.">
-    <meta property="og:url" content="https://www.tresmenosdos.uno">
+    <meta property="og:url" content="https://www.tresmenosdos.uno/perfect-square-roots-practice.html">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://www.tresmenosdos.uno/images/og-image.jpg">
 
@@ -36,6 +35,9 @@
     <!-- Canonical Tag to Prevent Duplicate Content -->
     <link rel="canonical" href="https://www.tresmenosdos.uno/perfect-square-roots-practice.html">
 
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
     <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap" rel="stylesheet">
@@ -58,16 +60,31 @@
 
 <body class="container-main" aria-labelledby="main-title">
     <header>
-        <nav class="nav-bar" role="navigation" aria-label="Main navigation">
-            <ul>
-                <li><a href="index.html" aria-label="Home">✖️</a></li>
-                <li><a href="short-division.html" aria-label="Division Section">➗🗂️</a></li>
-                <li><a href="long-division.html" aria-label="Division Section">➗✎</a></li>
-                <li><a href="perfect-square-roots-practice.html" aria-label="Perfect Square Roots Section">√</a></li>
-                <li><a href="algebraic-equations.html" aria-label="Algebraic Equations Section">2X = 3x9</a></li>
-                <li><a href="subtraction-practice.html" aria-label="Subtraction Section">➖</a></li>
-            </ul>
-            <button id="theme-toggle-button" class="theme-toggle" aria-label="Toggle light and dark mode">|☯️|</button>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="index.html">✖️</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="short-division.html" aria-label="Division Section">➗🗂️</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="long-division.html" aria-label="Division Section">➗✎</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="perfect-square-roots-practice.html" aria-label="Perfect Square Roots Section">√</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="algebraic-equations.html" aria-label="Algebraic Equations Section">2X = 3x9</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="subtraction-practice.html" aria-label="Subtraction Section">➖</a>
+                    </li>
+                </ul>
+                <button id="theme-toggle-button" class="btn btn-outline-secondary ml-auto" aria-label="Toggle light and dark mode">|☯️|</button>
+            </div>
         </nav>
     </header>
 
@@ -80,9 +97,9 @@
                 <p id="question" class="question-text" aria-live="polite">2 × 2</p>
                 <label for="answer-input"></label>
                 <input type="number" id="answer-input" maxlength="4" aria-label="Answer input" autofocus=""> <br>
-                <button id="submit-button" class="submit-btn" aria-label="Submit your answer">📤</button>
+                <button id="submit-button" class="btn btn-primary" aria-label="Submit your answer">📤</button>
             </div>
-            <button id="reset-button" class="reset-button" aria-label="Reset your progress">🗑️</button>
+            <button id="reset-button" class="btn btn-danger" aria-label="Reset your progress">🗑️</button>
 
             <!-- Progress Boxes -->
             <div class="progress-containers">
@@ -156,6 +173,11 @@
             </p>
         </div>
     </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script defer src="scripts/perfect-square-roots-practice.js"></script>
     <script defer src="scripts/main.js"></script>
