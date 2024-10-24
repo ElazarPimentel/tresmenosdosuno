@@ -160,19 +160,7 @@ h1 {
     }
   }
 
-  .reset-button {
-    margin-top: 1rem;
-    background-color: $color-reset-button;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 0.5rem;
-    font-size: 1.2rem;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    align-self: flex-start; // Aligns to the left in a flex container
-    margin-left: 0; // Ensures it's aligned to the left
-  }
+
 
   .progress-containers {
     display: flex;
@@ -284,19 +272,23 @@ h1 {
   }
 }
 
-
 .footer {
-  margin-top: 20rem;
-  padding: 1rem;
-  background-color: $color-footer-bg;
-  color: $color-text;
-  text-align: center;
-
-  body.light-mode & {
-    background-color: $color-light-footer-bg;
-    color: $color-light-text;
+    margin-top: 20rem;
+    padding: 1rem;
+    background-color: $color-footer-bg;
+    color: $color-text;
+    text-align: left;
+  
+    body.light-mode & {
+      background-color: $color-light-footer-bg;
+      color: $color-light-text;
+    }
+  
+    .footer-hijitos {
+      text-align: center;
+    } 
   }
-}
+
 
 .description-box {
   margin-top: 1.5rem;
@@ -344,4 +336,9 @@ copyright {
     color: $color-light-text;
     border-color: $color-light-link;
   }
+}
+
+.btn-delete-localstore {
+  text-align: left !important; // Forces text alignment to the left
+  // Add any other styles you need here
 }

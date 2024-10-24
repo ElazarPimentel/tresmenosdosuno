@@ -95,18 +95,6 @@ h1 {
       .question-section #question-container .submit-btn:disabled {
         background-color: #bab8b8;
         cursor: not-allowed; }
-  .question-section .reset-button {
-    margin-top: 1rem;
-    background-color: #1E90FF;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 0.5rem;
-    font-size: 1.2rem;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    align-self: flex-start;
-    margin-left: 0; }
   .question-section .progress-containers {
     display: flex;
     flex-direction: row;
@@ -183,10 +171,12 @@ h1 {
   padding: 1rem;
   background-color: #333;
   color: #FFFFFF;
-  text-align: center; }
+  text-align: left; }
   body.light-mode .footer {
     background-color: #ddd;
     color: #000000; }
+  .footer .footer-hijitos {
+    text-align: center; }
 
 .description-box {
   margin-top: 1.5rem;
@@ -219,18 +209,7 @@ copyright {
     color: #000000;
     border-color: #007BFF; }
 
-.float-left-custom {
-    float: left;
-}
+.btn-delete-localstore {
+  text-align: left !important; }
 
 /*# sourceMappingURL=styles.css.map */
-
-.btn-delete-localstore {
-    position: fixed; /* Fixes the button's position relative to the viewport */
-    bottom: 10px; /* Adjusts the distance from the bottom */
-    left: 10px; /* Adjusts the distance from the left */
-    margin: 0; /* Reset margin */
-    padding: 0; /* Reset padding */
-    display: block; /* Ensure it's a block element */
-    /* Add any additional styling you need */
-}
