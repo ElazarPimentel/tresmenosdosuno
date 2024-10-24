@@ -191,13 +191,12 @@ h1 {
   padding: 1rem;
   border-radius: 8px;
   background-color: #747070;
-  color: #FFFFFF; }
+  color: #FFFFFF;
+  text-align: left; }
   body.light-mode .description-box {
     background-color: #fff;
     color: #000000; }
 
-@media (max-width: 768px) {
-  /* Removed custom responsive navbar styles as Bootstrap handles it */ }
 .division-table input {
   text-align: center;
   width: 3ch; }

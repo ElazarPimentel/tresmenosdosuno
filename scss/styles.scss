@@ -306,6 +306,7 @@ h1 {
   border-radius: 8px;
   background-color: $color-header-bg;
   color: $color-text;
+  text-align: left; 
 
   body.light-mode & {
     background-color: $color-light-header-bg;
@@ -313,9 +314,6 @@ h1 {
   }
 }
 
-@media (max-width: $screen-tablet) {
-  /* Removed custom responsive navbar styles as Bootstrap handles it */
-}
 
 .division-table {
   input {
