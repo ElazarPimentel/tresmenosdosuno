@@ -1,4 +1,4 @@
-// File: scripts/multiplication-practice.js
+// file: scripts/multiplication-practice.js
 
 console.log(`Program starts at ${new Date().toLocaleString()}`);
 
@@ -30,6 +30,9 @@ let isReinforcementMode = false;
 let currentQuestion = null;
 let flaggedCombinations = [];
 
+// New Variable for Staying on Selected Table
+let stayOnTable = false;
+
 // Session Tracking Variables
 let totalQuestions = 0;
 let correctAnswers = 0;
@@ -51,7 +54,8 @@ const flaggedProgressElement = document.getElementById('flagged-progress');
 const sessionProgressElement = document.getElementById('session-progress');
 const sleepIndicator = document.getElementById('sleep-indicator');
 const toggleButtons = document.querySelectorAll('.toggle-button');
-const tableSelect = document.getElementById('table-select'); // Added for table selection
+const tableSelect = document.getElementById('table-select'); // Dropdown
+const stayOnTableCheckbox = document.getElementById('stay-on-table'); // New Checkbox
 
 function loadProgress() {
     console.log('Loading progress from localStorage');
@@ -157,13 +161,20 @@ function displayQuestion() {
         console.log('Next question:', `${currentQuestion.a} × ${currentQuestion.b}`);
     } else {
         if (randomQuestionsPool.length === 0) {
-            currentTableIndex++;
-            currentQuestionIndex = 0;
-            isRandomPhase = false;
-            console.log('Random phase completed. Moving to next table:', currentTableIndex);
-            saveProgress();
-            displayQuestion();
-            return;
+            if (stayOnTable) {
+                isRandomPhase = false;
+                currentQuestionIndex = 0;
+                displayQuestion();
+                return;
+            } else {
+                currentTableIndex++;
+                currentQuestionIndex = 0;
+                isRandomPhase = false;
+                console.log('Random phase completed. Moving to next table:', currentTableIndex);
+                saveProgress();
+                displayQuestion();
+                return;
+            }
         }
 
         const randomIndex = Math.floor(Math.random() * randomQuestionsPool.length);
@@ -460,6 +471,16 @@ tableSelect.addEventListener('change', function () {
     updateFlaggedProgressDisplay();
     updateSessionProgressDisplay();
     displayQuestion();
+});
+
+// Event listener for stay on table checkbox
+stayOnTableCheckbox.addEventListener('change', function () {
+    stayOnTable = this.checked;
+    if (stayOnTable) {
+        console.log('Stay on selected table enabled.');
+    } else {
+        console.log('Stay on selected table disabled.');
+    }
 });
 
 submitButton.addEventListener('click', handleSubmit);
