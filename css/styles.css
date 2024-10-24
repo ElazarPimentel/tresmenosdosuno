@@ -174,8 +174,6 @@ h1 {
     font-size: 2rem;
     animation: blink 1s infinite; }
 
-/* Navigation Bar Styles */
-/* Removed custom navbar styles as Bootstrap handles it */
 .footer {
   margin-top: 20rem;
   padding: 1rem;

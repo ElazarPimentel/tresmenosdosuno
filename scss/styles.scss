@@ -29,8 +29,6 @@ $screen-desktop: 992px;
 $screen-wide: 1200px;
 $screen-extra-wide: 1440px;
 
-// Import Bootstrap SCSS if needed
-// Otherwise, ensure Bootstrap CSS is included via CDN as in index.html
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -284,8 +282,6 @@ h1 {
   }
 }
 
-/* Navigation Bar Styles */
-/* Removed custom navbar styles as Bootstrap handles it */
 
 .footer {
   margin-top: 20rem;
