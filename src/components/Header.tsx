@@ -12,7 +12,7 @@ export default function Header({ onToggleDarkMode, isDarkMode }: HeaderProps) {
         <nav className="nav">
           <div className="nav__logo">
             <Link href="/" className="header__logo">
-              TresMenosDos
+              TresMenosDos.uno
             </Link>
           </div>
 
