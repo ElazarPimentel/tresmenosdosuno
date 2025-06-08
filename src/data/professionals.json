@@ -1,0 +1,72 @@
+[
+  {
+    "nombre": "Florencia Nicol\u00e1s",
+    "profesion": "Psic\u00f3loga",
+    "especializacion": "Neuropsicolog\u00eda, Inteligencias M\u00faltiples, Mindfulness",
+    "provincia": "CABA",
+    "zona": "Palermo",
+    "email": "[email\u00a0protected]",
+    "telefono": null,
+    "institucion": null
+  },
+  {
+    "nombre": "Laura Diz",
+    "profesion": "Psic\u00f3loga",
+    "especializacion": "Neuropsicolog\u00eda del Aprendizaje",
+    "provincia": "Buenos Aires",
+    "zona": "Bella Vista / San Miguel",
+    "email": "[email\u00a0protected]",
+    "telefono": "(011) 3858-8819",
+    "institucion": null
+  },
+  {
+    "nombre": "Paula Irueste y equipo",
+    "profesion": "Dra. en Cs. de la Salud, Lic. en Psicolog\u00eda",
+    "especializacion": "Detecci\u00f3n gratuita de ACI, Neuropsicolog\u00eda",
+    "provincia": "C\u00f3rdoba",
+    "zona": "UNC",
+    "email": "[email\u00a0protected]",
+    "telefono": null,
+    "institucion": "Universidad Nacional de C\u00f3rdoba"
+  },
+  {
+    "nombre": "Adriana Orellana",
+    "profesion": "Psic\u00f3loga",
+    "especializacion": "Psicodiagn\u00f3stico y seguimiento gratuito",
+    "provincia": "Jujuy",
+    "zona": "San Salvador de Jujuy",
+    "email": "[email\u00a0protected]",
+    "telefono": null,
+    "institucion": "Ministerio de Educaci\u00f3n de Jujuy"
+  },
+  {
+    "nombre": "Romina Bordas",
+    "profesion": "Psicopedagoga cl\u00ednica",
+    "especializacion": "Neuropsicolog\u00eda del Aprendizaje",
+    "provincia": "Buenos Aires",
+    "zona": "Monte Grande / Luis Guill\u00f3n",
+    "email": "[email\u00a0protected]",
+    "telefono": "(011) 3774-4462",
+    "institucion": null
+  },
+  {
+    "nombre": "Asociaci\u00f3n Altas Capacidades Argentina (AACArg)",
+    "profesion": "ONG",
+    "especializacion": "Capacitaci\u00f3n, informaci\u00f3n, difusi\u00f3n sobre ACI",
+    "provincia": "Varias",
+    "zona": null,
+    "email": null,
+    "telefono": null,
+    "institucion": "AACArg"
+  },
+  {
+    "nombre": "Mensa Argentina",
+    "profesion": "Organizaci\u00f3n",
+    "especializacion": "Evaluaciones y comunidad para ACI",
+    "provincia": "Nacional",
+    "zona": null,
+    "email": null,
+    "telefono": null,
+    "institucion": "Mensa"
+  }
+]

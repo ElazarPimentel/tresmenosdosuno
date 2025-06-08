@@ -1,0 +1,52 @@
+[
+  {
+    "nombre": "Universidad Nacional de C\u00f3rdoba (UNC)",
+    "tipo": "Universidad P\u00fablica",
+    "provincia": "C\u00f3rdoba",
+    "zona": "C\u00f3rdoba Capital",
+    "descripcion": "Ofrece servicios gratuitos para la identificaci\u00f3n de ni\u00f1os con altas capacidades.",
+    "web": null,
+    "email": null,
+    "telefono": null
+  },
+  {
+    "nombre": "Ministerio de Educaci\u00f3n de Jujuy - Programa SAE",
+    "tipo": "Programa Estatal",
+    "provincia": "Jujuy",
+    "zona": "San Salvador de Jujuy",
+    "descripcion": "Servicio de Acompa\u00f1amiento Escolar para la detecci\u00f3n y seguimiento de estudiantes con ACI.",
+    "web": null,
+    "email": "[email\u00a0protected]",
+    "telefono": "(0388) 520-6570"
+  },
+  {
+    "nombre": "AACArg (Asociaci\u00f3n Altas Capacidades Argentina)",
+    "tipo": "ONG Nacional",
+    "provincia": "Varias",
+    "zona": null,
+    "descripcion": "Capacitaci\u00f3n, informaci\u00f3n y difusi\u00f3n sobre ACI. Actividades federales.",
+    "web": "https://revista.elarcondeclio.com.ar/la-asociacion-civil-altas-capacidades-argentina/",
+    "email": null,
+    "telefono": null
+  },
+  {
+    "nombre": "Mensa Argentina",
+    "tipo": "Organizaci\u00f3n Internacional",
+    "provincia": "Nacional",
+    "zona": null,
+    "descripcion": "Evaluaciones de admisi\u00f3n y actividades para personas con ACI.",
+    "web": "https://es.wikipedia.org/wiki/Mensa_Argentina",
+    "email": null,
+    "telefono": null
+  },
+  {
+    "nombre": "Latento",
+    "tipo": "Centro Privado",
+    "provincia": "Buenos Aires",
+    "zona": null,
+    "descripcion": "Servicio de evaluaci\u00f3n y entrenamiento cognitivo para ni\u00f1os, adolescentes y adultos con ACI.",
+    "web": "https://www.latentoac.com/",
+    "email": null,
+    "telefono": null
+  }
+]
