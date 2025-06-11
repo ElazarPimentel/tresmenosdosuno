@@ -1,21 +1,22 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { getFirstProblem, CHALLENGE_TABLE, TABLES, initializeProgress, STORAGE_KEY } from '../data/multiplicationData';
+import { getFirstProblem, CHALLENGE_TABLE, TABLES, VALID_MULTIPLIERS, initializeProgress, STORAGE_KEY } from '../data/multiplicationData';
 
 export default function MultiplicationPractice() {
   const [selectedTable, setSelectedTable] = useState('2');
   const [currentProblem, setCurrentProblem] = useState(getFirstProblem('2'));
   const [progress, setProgress] = useState(initializeProgress());
-  const [currentMultiplier, setCurrentMultiplier] = useState(1);
+  const [currentMultiplier, setCurrentMultiplier] = useState(2);
   const [userAnswer, setUserAnswer] = useState('');
   const [errorFeedback, setErrorFeedback] = useState('');
   const [isSequentialPhase, setIsSequentialPhase] = useState(true);
   const [randomPhaseQuestions, setRandomPhaseQuestions] = useState<number[]>([]);
   const [currentRandomIndex, setCurrentRandomIndex] = useState(0);
-  const [challengeQuestions, setChallengeQuestions] = useState<{ table: string, multiplier: number, shownCount: number }[]>([]);
+  const [challengeQuestions, setChallengeQuestions] = useState<{ table: string, multiplier: number }[]>([]);
   const [currentChallengeIndex, setCurrentChallengeIndex] = useState(0);
   const [isClient, setIsClient] = useState(false);
+  const [challengeCount, setChallengeCount] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -47,19 +48,34 @@ export default function MultiplicationPractice() {
     }
   }, [currentProblem]);
 
+  // Calcular cantidad de combinaciones en Tabla Desafío
+  useEffect(() => {
+    if (!isClient) return;
+    
+    const count = TABLES.reduce((total, table) => {
+      return total + VALID_MULTIPLIERS.reduce((tableTotal, multiplier) => {
+        const combination = `${table}x${multiplier}`;
+        const combinationProgress = progress[table][combination];
+        return tableTotal + (
+          (combinationProgress.incorrectCount >= 2 || combinationProgress.inChallengeTable) ? 1 : 0
+        );
+      }, 0);
+    }, 0);
+    
+    setChallengeCount(count);
+  }, [progress, isClient]);
+
   const buildChallengeQuestions = () => {
-    const questions: { table: string, multiplier: number, shownCount: number }[] = [];
+    const questions: { table: string, multiplier: number }[] = [];
     TABLES.forEach(table => {
-      for (let i = 1; i <= 12; i++) {
+      VALID_MULTIPLIERS.forEach(i => {
         const combination = `${table}x${i}`;
         const combinationProgress = progress[table][combination];
-        if (combinationProgress.incorrectCount > combinationProgress.correctCount) {
-          const remainingShows = 3 - combinationProgress.shownCountChallenge;
-          for (let j = 0; j < remainingShows; j++) {
-            questions.push({ table, multiplier: i, shownCount: combinationProgress.shownCountChallenge + j });
-          }
+        // Incluir combinaciones con 2+ errores o marcadas manualmente
+        if (combinationProgress.incorrectCount >= 2 || combinationProgress.inChallengeTable) {
+          questions.push({ table, multiplier: i });
         }
-      }
+      });
     });
     // Shuffle the array
     for (let i = questions.length - 1; i > 0; i--) {
@@ -67,6 +83,30 @@ export default function MultiplicationPractice() {
       [questions[i], questions[j]] = [questions[j], questions[i]];
     }
     return questions;
+  };
+
+  const getIncompleteTables = () => {
+    return TABLES.filter(table => {
+      return !VALID_MULTIPLIERS.every(multiplier => {
+        const combination = `${table}x${multiplier}`;
+        const combinationProgress = progress[table][combination];
+        return combinationProgress.correctCount > combinationProgress.incorrectCount;
+      });
+    });
+  };
+
+  const areAllTablesComplete = () => {
+    return getIncompleteTables().length === 0;
+  };
+
+  const formatTablesList = (tables: string[]) => {
+    if (tables.length === 0) return '';
+    if (tables.length === 1) return `Tabla del ${tables[0]}`;
+    if (tables.length === 2) return `Tabla del ${tables[0]} y Tabla del ${tables[1]}`;
+    
+    const lastTable = tables[tables.length - 1];
+    const previousTables = tables.slice(0, -1);
+    return `Tabla del ${previousTables.join(', Tabla del ')} y Tabla del ${lastTable}`;
   };
 
   const handleTableCompletion = () => {
@@ -81,7 +121,7 @@ export default function MultiplicationPractice() {
       setTimeout(() => {
         setSelectedTable(nextTable);
         setCurrentProblem(getFirstProblem(nextTable));
-        setCurrentMultiplier(1);
+        setCurrentMultiplier(2);
         setIsSequentialPhase(true);
         setRandomPhaseQuestions([]);
         setCurrentRandomIndex(0);
@@ -97,7 +137,35 @@ export default function MultiplicationPractice() {
       }, 2000);
     } else {
       // Caso especial: tabla 12 completada
-      setCurrentProblem('¡Felicitaciones! Has completado todas las tablas de multiplicar.');
+      const incompleteTables = getIncompleteTables();
+      if (incompleteTables.length === 0) {
+        setCurrentProblem('¡Felicitaciones! Has completado todas las tablas. Pasando a la Tabla Desafío...');
+        
+        // Transición a la Tabla Desafío después de 3 segundos
+        setTimeout(() => {
+          setSelectedTable(CHALLENGE_TABLE);
+          const challengeQs = buildChallengeQuestions();
+          setChallengeQuestions(challengeQs);
+          setCurrentChallengeIndex(0);
+          if (challengeQs.length > 0) {
+            setCurrentProblem(`${challengeQs[0].table} × ${challengeQs[0].multiplier} = ?`);
+          } else {
+            setCurrentProblem('¡No hay combinaciones pendientes en la Tabla Desafío!');
+          }
+          setUserAnswer('');
+          setErrorFeedback('');
+          
+          // Garantizar enfoque del input
+          setTimeout(() => {
+            if (inputRef.current) {
+              inputRef.current.focus();
+            }
+          }, 100);
+        }, 3000);
+      } else {
+        const tablesMessage = formatTablesList(incompleteTables);
+        setCurrentProblem(`¡Tabla 12 completada! Aún no dominás: ${tablesMessage}. Podés practicarlas o pasar a la Tabla Desafío.`);
+      }
     }
   };
 
@@ -105,7 +173,7 @@ export default function MultiplicationPractice() {
     const newTable = event.target.value;
     setSelectedTable(newTable);
     setCurrentProblem(getFirstProblem(newTable));
-    setCurrentMultiplier(1);
+    setCurrentMultiplier(2);
     setUserAnswer('');
     setErrorFeedback('');
     setIsSequentialPhase(true);
@@ -128,7 +196,7 @@ export default function MultiplicationPractice() {
 
   const buildRandomPhaseQuestions = () => {
     const questions: number[] = [];
-    for (let i = 1; i <= 12; i++) {
+    VALID_MULTIPLIERS.forEach(i => {
       const combination = `${selectedTable}x${i}`;
       const combinationProgress = progress[selectedTable][combination];
       if (combinationProgress.incorrectCount > 0) {
@@ -136,7 +204,7 @@ export default function MultiplicationPractice() {
       } else {
         questions.push(i); // Show once if answered correctly
       }
-    }
+    });
     // Shuffle the array
     for (let i = questions.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -153,7 +221,7 @@ export default function MultiplicationPractice() {
     setProgress(initialProgress);
     setSelectedTable('2');
     setCurrentProblem(getFirstProblem('2'));
-    setCurrentMultiplier(1);
+    setCurrentMultiplier(2);
     setUserAnswer('');
     setErrorFeedback('');
     setIsSequentialPhase(true);
@@ -161,6 +229,19 @@ export default function MultiplicationPractice() {
     setCurrentRandomIndex(0);
     setChallengeQuestions([]);
     setCurrentChallengeIndex(0);
+  };
+
+  const toggleChallengeTableInclusion = () => {
+    if (selectedTable === CHALLENGE_TABLE) return; // No permitir toggle en la Tabla Desafío
+
+    const currentCombination = isSequentialPhase 
+      ? `${selectedTable}x${currentMultiplier}`
+      : `${selectedTable}x${randomPhaseQuestions[currentRandomIndex]}`;
+
+    const updatedProgress = { ...progress };
+    const combinationProgress = updatedProgress[selectedTable][currentCombination];
+    combinationProgress.inChallengeTable = !combinationProgress.inChallengeTable;
+    setProgress(updatedProgress);
   };
 
   const processAnswer = () => {
@@ -182,10 +263,15 @@ export default function MultiplicationPractice() {
         if (userResponse === correctAnswer) {
           combinationProgress.correctCount += 1;
           setProgress(updatedProgress);
-          if (currentMultiplier < 12) {
-            setCurrentMultiplier(currentMultiplier + 1);
-            setCurrentProblem(`${selectedTable} × ${currentMultiplier + 1} = ?`);
+          
+          // Encontrar el siguiente multiplicador válido
+          const currentIndex = VALID_MULTIPLIERS.indexOf(currentMultiplier);
+          if (currentIndex < VALID_MULTIPLIERS.length - 1) {
+            const nextMultiplier = VALID_MULTIPLIERS[currentIndex + 1];
+            setCurrentMultiplier(nextMultiplier);
+            setCurrentProblem(`${selectedTable} × ${nextMultiplier} = ?`);
           } else {
+            // Fin de la fase secuencial, pasar a fase aleatoria
             setIsSequentialPhase(false);
             const newQuestions = buildRandomPhaseQuestions();
             setRandomPhaseQuestions(newQuestions);
@@ -238,16 +324,19 @@ export default function MultiplicationPractice() {
           // Check if all combinations are learned
           let allLearned = true;
           const nextQuestions = [...randomPhaseQuestions];
-          for (let i = 1; i <= 12; i++) {
-            const comb = `${selectedTable}x${i}`;
+          
+          // Usar VALID_MULTIPLIERS en lugar de i de 1 a 12
+          VALID_MULTIPLIERS.forEach(multiplier => {
+            const comb = `${selectedTable}x${multiplier}`;
             const prog = updatedProgress[selectedTable][comb];
             if (prog.incorrectCount > prog.correctCount) {
               allLearned = false;
-              if (!nextQuestions.includes(i)) {
-                nextQuestions.push(i); // Add back if not learned
+              if (!nextQuestions.includes(multiplier)) {
+                nextQuestions.push(multiplier); // Add back if not learned
               }
             }
-          }
+          });
+
           if (currentRandomIndex < randomPhaseQuestions.length - 1) {
             setCurrentRandomIndex(currentRandomIndex + 1);
             setCurrentProblem(`${selectedTable} × ${randomPhaseQuestions[currentRandomIndex + 1]} = ?`);
@@ -291,7 +380,7 @@ export default function MultiplicationPractice() {
         }
       }
     } else {
-      // Challenge Table logic - sin cambios, protegida del avance automático
+      // Challenge Table logic - modificada para nuevo comportamiento
       if (challengeQuestions.length === 0) return;
 
       const currentChallenge = challengeQuestions[currentChallengeIndex];
@@ -328,21 +417,17 @@ export default function MultiplicationPractice() {
         }, 2000);
       }
 
-      // Update shown count in progress for the current challenge question
-      combinationProgress.shownCountChallenge += 1;
-      setProgress(updatedProgress);
-
-      // Move to next question or update list if learned
+      // Move to next question
       let nextIndex = currentChallengeIndex + 1;
       if (nextIndex >= challengeQuestions.length) {
-        // Build a new list excluding learned combinations
+        // Rebuild challenge questions list
         const newChallengeQuestions = buildChallengeQuestions();
         setChallengeQuestions(newChallengeQuestions);
         nextIndex = 0;
         if (newChallengeQuestions.length > 0) {
           setCurrentProblem(`${newChallengeQuestions[0].table} × ${newChallengeQuestions[0].multiplier} = ?`);
         } else {
-          setCurrentProblem('¡No quedan combinaciones pendientes en la Tabla Desafío!');
+          setCurrentProblem('¡No hay combinaciones pendientes en la Tabla Desafío!');
         }
       } else {
         setCurrentProblem(`${challengeQuestions[nextIndex].table} × ${challengeQuestions[nextIndex].multiplier} = ?`);
@@ -380,7 +465,7 @@ export default function MultiplicationPractice() {
           <option value="10">Tabla del 10</option>
           <option value="11">Tabla del 11</option>
           <option value="12">Tabla del 12</option>
-          <option value={CHALLENGE_TABLE}>Tabla Desafío</option>
+          <option value={CHALLENGE_TABLE}>Tabla Desafío {challengeCount > 0 ? `(${challengeCount})` : ''}</option>
         </select>
       </div>
       <div className="problem-display">
@@ -396,6 +481,23 @@ export default function MultiplicationPractice() {
             autoFocus
           />
         </form>
+        {selectedTable !== CHALLENGE_TABLE && (
+          <div className="challenge-toggle">
+            <label>
+              <input
+                type="checkbox"
+                checked={
+                  isSequentialPhase
+                    ? progress[selectedTable][`${selectedTable}x${currentMultiplier}`]?.inChallengeTable
+                    : progress[selectedTable][`${selectedTable}x${randomPhaseQuestions[currentRandomIndex]}`]?.inChallengeTable
+                }
+                onChange={toggleChallengeTableInclusion}
+                className="challenge-checkbox"
+              />
+              En Tabla Desafío
+            </label>
+          </div>
+        )}
         <div className="feedback-space">
           {errorFeedback && <p className="error-feedback">{errorFeedback}</p>}
         </div>
